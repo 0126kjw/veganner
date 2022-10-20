@@ -1,0 +1,28 @@
+.map {
+    display: flex;
+    background-color: #F1F1F1;
+    position: relative;
+    margin-top: 80px;
+    width: 1200px;
+    height: 730px;
+  }
+
+
+
+
+
+.map .sidebar {
+    width: 560px;
+    height: 100%;
+    background-color: #fff;
+    border: 1px solid #e0e0e0;
+    position: absolute;
+    top: 0;
+    left: 0;
+    box-sizing: border-box;
+    overflow: hidden;
+    overflow-y: scroll;
+  
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none;
+  }
