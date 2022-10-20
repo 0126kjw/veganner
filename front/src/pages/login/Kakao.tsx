@@ -57,7 +57,10 @@ function KakaoLogin(){
         getKakaoToken();
     }, []);
 
-    return <div>KakaoLogin</div>
+    return <div>
+        <p>카카오 로그인 요청중입니다.</p>
+        <p>잠시만 기다려주세요...</p>
+        </div>
 }
 
 export default KakaoLogin;
