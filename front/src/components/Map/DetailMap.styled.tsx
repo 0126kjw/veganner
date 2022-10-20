@@ -8,8 +8,8 @@ export const DetailMap = styled.div`
 `;
 
 export const wrap = styled.div`
-  display: flex;
-  height: 200px;
+  display: block;
+  height: 150px;
   width: 300px;
   border-radius: 10px;
   background-color: white;
@@ -17,18 +17,21 @@ export const wrap = styled.div`
 
 export const info = styled.div`
   display: flex;
-  height: 30px;
-  background-color: gray;
+  height: 50px;
+  background-color: #e2e2e2;
+  border-radius: 10px;
 `;
 export const title = styled.div`
-  width: 90%;
+  width: 250px;
+  font-size: 20px;
   flex-direction: row;
-  margin: 20px;
-  background-color: blue;
+  margin: 15px;
+  text-align: center;
 `;
 
-export const close = styled.button`
+export const close = styled.img`
   flex-direction: row;
+  width: 50px;
 `;
 
 export const body = styled.div`
@@ -41,4 +44,13 @@ export const desc = styled.div`
 
 export const ell = styled.div`
   display: flex;
+  margin: 15px;
+  word-break: keep-all;
+  white-space: normal;
+  line-height: 1.5;
+`;
+
+export const road = styled.img`
+  width: 50px;
+  height: 50px;
 `;

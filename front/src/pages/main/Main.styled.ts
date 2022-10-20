@@ -14,42 +14,42 @@ export interface MainStyledProps {
 export const Main = styled.div`
   font-family: "Noto Sans KR";
 `;
-export const Main1Layout = styled.div`
-  display: flex;
+
+export const BackgroundImgLayout = styled.div<MainStyledProps>`
   width: auto;
-  height: 100vh;
+  height: ${(props) => props.height};
   font-family: "Noto Sans KR";
-  background-image: url(${main1});
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-image: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)),
+    url(${(props) => props.backgroundImg});
   background-size: cover;
   background-repeat: no-repeat;
 `;
 
-export const Main1Box = styled.div`
-  width: 100%;
-  margin-left: auto;
-  margin-top: 30vh;
-  margin-right: 15vh;
+export const TitleText = styled.div<MainStyledProps>`
+  font-size: ${(props) => `${props.fontSize}px`};
+  font-weight: 1000;
+  text-align: ${(props) => props.textAlign};
+  margin-bottom: 30px;
+  color: ${(props) => props.color};
 `;
 
-export const Text1 = styled.div`
-  font-size: 60px;
-  font-weight: 800;
-  text-align: right;
-  margin: 18px 0;
-  color: #212121;
-`;
-
-export const Button1 = styled.button`
+export const WithButton = styled.button`
   display: block;
-  width: 200px;
+  width: 150px;
   height: 50px;
   border: none;
   background-color: transparent;
-  background-image: url(${button1});
-  background-size: contain;
-  background-repeat: no-repeat;
+  border: 1px solid #f1f1f1;
+  border-radius: 15px;
   float: right;
   margin-top: 15px;
+  font-size: 20px;
+  color: #f1f1f1;
 `;
 
 export const PageLayout = styled.div<MainStyledProps>`

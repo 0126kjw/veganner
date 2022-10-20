@@ -3,10 +3,9 @@ import "@toast-ui/editor/dist/toastui-editor.css";
 import styled from "styled-components";
 import React from "react";
 import axios from "axios";
-import * as Api from "../../api/api";
 export interface EditorProps {
-  editorRef: React.ForwardedRef<Editor>;
-  initialValue: string;
+  editorRef?: React.ForwardedRef<Editor>;
+  initialValue?: string;
 }
 
 function TuiEditor(props: EditorProps) {
@@ -24,8 +23,8 @@ function TuiEditor(props: EditorProps) {
       }
     );
     console.log(url["Image"]);
-    const imgSrc = `http://localhost:8000/board+${url["Image"]}`;
-    callback(url["Image"], "이미지");
+    const imgSrc = "http://localhost:8000/board" + url["Image"];
+    callback(imgSrc, "image");
   };
 
   return (

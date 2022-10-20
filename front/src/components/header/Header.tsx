@@ -3,6 +3,7 @@ import * as S from "./Header.styled";
 import userState from "../../atoms/user";
 import { useRecoilValue, useResetRecoilState } from "recoil";
 import * as Api from "../../api/api";
+import { useNavigate } from "react-router-dom";
 
 // interface HeaderProps {
 //   src: string;
@@ -11,13 +12,16 @@ import * as Api from "../../api/api";
 function Header() {
   const userReset = useResetRecoilState(userState);
   const user = useRecoilValue(userState);
-
+  const email = window.sessionStorage.getItem("email");
+  const navigate = useNavigate();
   const handleLogout = async () => {
     try {
       // "user/login" 엔드포인트로 post요청함.
       await Api.post("logout/");
       // 유저 정보는 response의 data임.
       userReset();
+      window.sessionStorage.removeItem("email");
+      navigate("/", { replace: true });
       // 기본 페이지로 이동함.
     } catch (err) {
       console.log("로그아웃 실패하였습니다.\n", err);
@@ -30,16 +34,16 @@ function Header() {
       <S.HeaderWrapper>
         <S.HeaderLogo to="/" />
         <S.Navbar>
-          <S.StyledLink to="/insights">Insights.</S.StyledLink>
-          <S.StyledLink to="/share">Share.</S.StyledLink>
+          <S.StyledLink to="/insight">Insights.</S.StyledLink>
+          <S.StyledLink to="/board">Share.</S.StyledLink>
           <S.StyledLink to="/explore">Explore.</S.StyledLink>
 
-          {user === null ? (
+          {email === null ? (
             <S.StyledLink to="/login">Login/Register.</S.StyledLink>
           ) : (
             <>
               <S.StyledLink to="/" onClick={handleLogout}>
-                logout
+                Logout.
               </S.StyledLink>
             </>
           )}

@@ -1,130 +1,105 @@
-// import * as S from "../addPost/Post.styled";
-// import { useEffect, useRef, useState } from "react";
-// import * as Api from "../../api/api";
-// import { Editor } from "@toast-ui/react-editor";
-// import Category from "../../components/category/Category";
-// import Filter from "../../components/filter/Filter";
-// import TuiEditor from "../../components/editor/Editor";
-// import { EditorProps } from "../../components/editor/Editor";
-// import axios from "axios";
-
-// interface EditPostProps {
-//   tuiEditor?: EditorProps;
-// }
+import * as S from "../addPost/Post.styled";
+import React, { useEffect, useRef, useState } from "react";
+import { Editor } from "@toast-ui/react-editor";
+import Category from "../../components/category/Category";
+import Filter from "../../components/filter/Filter";
+import TuiEditor from "../../components/editor/Editor";
+import axios from "axios";
+import { useNavigate, useLocation } from "react-router-dom";
 
 function EditPost() {
-  return <></>;
+  // 에디터 initialValue
+  // const defaultContent = "당신의 채식 경험을 공유해 주세요!";
+  const location = useLocation();
+  const navigate = useNavigate();
+
+  const post = location.state;
+  // 포스트 제목
+  const [title, setTitle] = useState<string>(post.Title);
+  //const [content, setContent] = useState<string>(post.Content);
+  const [group, setGroup] = useState<number>(post.Groups);
+  const [address, setAddress] = useState<string>(post.Address);
+  const [type, setType] = useState<string>(post.Type);
+  const [thumbnail, setThumbnail] = useState<File>(post.Thumbnail);
+
+  // editor DOM 선택용
+  const editorRef = useRef<Editor>(null);
+  useEffect(() => {
+    if (editorRef.current) {
+      editorRef.current.getInstance().setHTML(post.Content);
+    }
+  }, []);
+
+  const handleThumbnail = async (e: any) => {
+    setThumbnail(e.target.files[0]);
+    //console.log(typeof formData);
+  };
+
+  const handleRegister = async (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+
+    // 예외처리(레시피는 주소 항목 없음.)
+    if (group === 1) {
+      setAddress("");
+    }
+    const formData = new FormData();
+    formData.append("Title", title);
+    if (editorRef.current) {
+      formData.append("Content", editorRef.current.getInstance().getHTML());
+    }
+    formData.append("Groups", group.toString());
+    formData.append("Address", address);
+    formData.append("Type", type);
+    if (thumbnail) formData.append("Thumbnail", thumbnail);
+    formData.append("User", post.User);
+
+    try {
+      await axios
+        .put(`http://localhost:8000/board/${post.ID}/`, formData, {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        })
+        .then((res) => {
+          navigate(`/board/${res.data.ID}`);
+        });
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  return (
+    <S.PostLayout>
+      <Category group={group} setGroup={setGroup} />
+      <S.TitleInput
+        type="text"
+        value={title}
+        placeholder="제목"
+        onChange={(e: any) => setTitle(e.target.value)}
+      />
+      <S.ThumbnailInput
+        type="file"
+        accept="image/*"
+        onChange={handleThumbnail}
+      />
+      <S.LocationRegisterBar
+        type="text"
+        placeholder="장소를 검색해 등록해주세요."
+      />
+      <Filter
+        address={address}
+        type={type}
+        group={group}
+        setAddress={setAddress}
+        setType={setType}
+      />
+      <TuiEditor editorRef={editorRef} />
+      <S.ButtonBox>
+        <S.Button onClick={handleRegister}>등록</S.Button>
+        <S.Button>취소</S.Button>
+      </S.ButtonBox>
+    </S.PostLayout>
+  );
 }
-
-// function EditPost({ tuiEditor }: EditPostProps) {
-//   //임시로 가져온 post
-//   // const [post, setPost] = useState<object>({
-//   //   title: "",
-//   //   content: "",
-//   //   group: 0,
-//   // });
-//   // const getPost = async () => {
-//   //   const res = await Api.get("board/21/");
-//   //   setPost(res);
-//   // };
-//   // useEffect(() => {
-//   //   getPost();
-//   // }, []);
-
-//   // const [title, setTitle] = useState<string>(post.title);
-//   // const [content, setContent] = useState<string>(post.content);
-//   // const [group, setGroup] = useState<number>(post.group);
-//   // const [type, setType] = useState<string>("");
-
-//   //editor DOM 선택용
-//   const editorRef = useRef<Editor>(null);
-//   const handleRegister = async (e: React.MouseEvent<HTMLButtonElement>) => {
-//     e.preventDefault();
-
-//     // console.log(editorRef.current?.getInstance().getHTML());
-//     // console.log(editorRef.current?.getInstance().getMarkdown());
-
-//     // if (editorRef.current) {
-//     //   setContent(editorRef.current.getInstance().getHTML());
-//     // }
-//     // const updatePost = {
-//     //   Title: title,
-//     //   Content: content,
-//     //   Groups: group,
-//     //   //Types: type,
-//     // };
-//     // try {
-//     //   await Api.put("board/21", updatePost);
-
-//     //   // const res = await Api.get("board");
-//     //   // setPost(res.data);
-//     // } catch (e) {
-//     //   console.error(e);
-//     // }
-//   };
-
-//   // 이미지 base64 처리
-//   useEffect(() => {
-//     if (editorRef.current) {
-//       // // 전달받은 html값으로 초기화
-//       // if (editor?.htmlStr) {
-//       //   editorRef.current.getInstance().setHTML(editor?.htmlStr);
-//       // }
-//       // 기존 이미지 업로드 기능 제거
-//       editorRef.current.getInstance().removeHook("addImageBlobHook");
-//       // 이미지 서버로 데이터를 전달하는 기능 추가
-//       editorRef.current
-//         .getInstance()
-//         .addHook("addImageBlobHook", (blob, callback) => {
-//           (async () => {
-//             const formData = new FormData();
-//             formData.append("image", blob);
-//             axios.defaults.withCredentials = true;
-//             // const res = await Api.post("board/uploadedImg/", {
-//             //   data: formData,
-//             //   headers: { "Content-type": "multipart/form-data" },
-//             // });
-//             const { data: url } = await axios.post(
-//               "http://localhost:8000/img/",
-//               formData,
-//               {
-//                 headers: { "Content-type": "multipart/formdata" },
-//               }
-//             );
-//             console.log(
-//               `%cPOST 요청 데이터: ${JSON.stringify(url)}`,
-//               "color: #296aba;"
-//             );
-
-//             callback(url, "input alt text");
-//             console.log(url);
-//           })();
-
-//           return false;
-//         });
-//     }
-//   }, [editorRef]);
-
-//   return (
-//     <>
-//       <S.PostLayout>
-//         {/* <Category setGroup={setGroup} />
-//         <S.TitleInput
-//           type="text"
-//           value={title}
-//           placeholder="제목"
-//           onChange={(e) => setTitle(e.target.value)}
-//         />
-//         <S.SearchBar type="text" placeholder="장소를 검색해 등록해주세요." />
-//         <Filter />
-//         <TuiEditor editorRef={editorRef} initialValue={content} />
-//         <S.ButtonBox>
-//           <S.Button onClick={handleRegister}>수정</S.Button>
-//           <S.Button>취소</S.Button>
-//         </S.ButtonBox> */}
-//       </S.PostLayout>
-//     </>
-//   );
-// }
 
 export default EditPost;

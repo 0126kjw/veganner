@@ -4,17 +4,37 @@ import foodEmission from "../../assets/data-analysis/foodEmission.png";
 import foodEmissionToCar from "../../assets/data-analysis/foodEmissionToCar.png";
 import left_img from "../../assets/img/left_img.png";
 import right_img from "../../assets/img/right_img.png";
+import veganism_background from "../../assets/img/veganism_background.jpeg";
+import { useNavigate } from "react-router-dom";
 
 function Main() {
+  const navigate = useNavigate();
   return (
     <S.Main>
-      <S.Main1Layout>
-        <S.Main1Box>
-          <S.Text1>나와 지구를 위한 채식 문화,</S.Text1>
-          <S.Text1>비거너와 함께 시작해요!</S.Text1>
-          <S.Button1 />
-        </S.Main1Box>
-      </S.Main1Layout>
+      <S.BackgroundImgLayout
+        backgroundImg={veganism_background}
+        height={"100vh"}
+      >
+        <S.TitleText fontSize={60} textAlign={"right"} color={"#f1f1f1"}>
+          나와 지구를 위한 채식 문화,
+        </S.TitleText>
+        <S.TitleText fontSize={60} textAlign={"right"} color={"#f1f1f1"}>
+          비거너와 함께 시작해요
+        </S.TitleText>
+        <S.WithButton
+          onClick={(e) => {
+            navigate("/insight");
+          }}
+        >
+          동참하기
+        </S.WithButton>
+      </S.BackgroundImgLayout>
+
+      {/* <S.MainBackgroundImgLayout>
+          <S.TitleText>나와 지구를 위한 채식 문화,</S.TitleText>
+          <S.TitleText>비거너와 함께 시작해요</S.TitleText>
+          <S.WithButton />
+        </S.MainBackgroundImgLayout> */}
 
       <S.PageLayout height={"100vh"}>
         <S.RowTextBox>
@@ -69,7 +89,11 @@ function Main() {
             <S.Text fontSize={18} color={"#212121"} textAlign={"left"}>
               비건 식당과 레시피를 자유롭게 공유할 수 있어요.
             </S.Text>
-            <S.CardButton></S.CardButton>
+            <S.CardButton
+              onClick={(e) => {
+                navigate("/board");
+              }}
+            ></S.CardButton>
           </S.Card>
           <S.Card>
             <S.CardImgBox backgroundImg={right_img}></S.CardImgBox>
@@ -80,7 +104,11 @@ function Main() {
             <S.Text fontSize={18} color={"#212121"} textAlign={"left"}>
               비거너에서는 지도에서 비건 식당을 쉽게 찾을 수 있어요.
             </S.Text>
-            <S.CardButton></S.CardButton>
+            <S.CardButton
+              onClick={(e) => {
+                navigate("/explore");
+              }}
+            ></S.CardButton>
           </S.Card>
         </S.CardLayout>
       </S.PageLayout>

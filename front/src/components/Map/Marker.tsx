@@ -1,38 +1,64 @@
-import { MapMarker, CustomOverlayMap } from "react-kakao-maps-sdk";
+import { MapMarker, CustomOverlayMap, Roadview } from "react-kakao-maps-sdk";
 import { Restaurant } from "../../types/restaurant";
 import { useState } from "react";
+import * as S from "./DetailMap.styled";
+import closeicon from "../../assets/img/closeimg.png";
+import mark from "../../assets/img/marker.png";
+import roadview from "../../assets/img/roadview.png";
 interface Markerprops {
   location: Restaurant;
 }
 
 function Marker({ location }: Markerprops) {
   const [isOpen, setIsOpen] = useState(false);
+  const [roadOpen, setRoadOpen] = useState(false);
   return (
     <>
-      <MapMarker
-        onClick={() => setIsOpen(!isOpen)}
-        position={{ lat: location.y, lng: location.x }}
-        image={{
-          src: "./assets/image/marker.png",
-          size: {
-            width: 24,
-            height: 35,
-          },
-        }}
-        title={location.name}
-      />
+      {!isOpen && (
+        <MapMarker
+          onClick={() => setIsOpen(!isOpen)}
+          position={{ lat: location.y, lng: location.x }}
+          image={{
+            src: mark,
+            size: {
+              width: 24,
+              height: 35,
+            },
+          }}
+          title={location.name}
+        />
+      )}
       {isOpen && (
         <CustomOverlayMap position={{ lat: location.y, lng: location.x }}>
-          <div className="wrap">
-            <div className="info">
-              <div className="title">{location.name}</div>
-              <div className="body">
-                <div className="desc">
-                  <div className="ellipsis">{location.location}</div>
-                </div>
-              </div>
-            </div>
-          </div>
+          <S.wrap>
+            <S.info>
+              <S.title>{location.name}</S.title>
+              <S.close
+                src={closeicon}
+                onClick={() => setIsOpen(false)}
+                title="닫기"
+              ></S.close>
+            </S.info>
+            <S.body>
+              <S.desc>
+                <S.ell>{location.location}</S.ell>
+              </S.desc>
+              {/* <S.road src={roadview} onClick={() => setRoadOpen(!roadOpen)} />
+              {roadOpen && (
+                <Roadview
+                  position={{
+                    lat: location.y,
+                    lng: location.x,
+                    radius: 50,
+                  }}
+                  style={{
+                    width: "100%",
+                    height: "100%",
+                  }}
+                />
+              )} */}
+            </S.body>
+          </S.wrap>
         </CustomOverlayMap>
       )}
     </>

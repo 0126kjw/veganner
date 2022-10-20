@@ -1,5 +1,7 @@
-import React from "react";
 import styled from "styled-components";
+import { FaRegThumbsUp, FaThumbsUp } from "react-icons/fa";
+import { useState, useEffect } from "react";
+import * as Api from "../../api/api";
 
 const ViewTitleBlock = styled.div`
   margin: 50px;
@@ -27,7 +29,7 @@ const ViewInfoBlock = styled.div`
   margin: 0 15px 15px 15px;
 
   span {
-    margin: 0 10px 0 10px;
+    margin: 0 5px 0 5px;
   }
 `;
 
@@ -52,9 +54,6 @@ const LikeBlock = styled.div`
   flex: none;
   align-items: center;
 
-  .like {
-    margin-right: 5px;
-  }
   .count {
     color: #004d43;
   }
@@ -69,10 +68,36 @@ interface postProps {
   post: any;
 }
 function PostViewHead({ post }: postProps) {
+  const [liked, setLiked] = useState(false);
+
+  async function handleLike() {
+    try {
+      let res = await Api.post(`board/${post.ID}/like/`);
+      console.log("좋아요 성공\n", res);
+
+      liked ? setLiked(false) : setLiked(true);
+    } catch (err) {
+      console.log("좋아요 실패\n", err);
+    }
+  }
+
+  useEffect(() => {
+    async function getLikeData() {
+      try {
+        const res = await Api.get(`board/${post.ID}/like`);
+        post.Likes = res.data;
+        console.log("좋아요 수 조회에 성공했습니다.\n", res);
+      } catch (err) {
+        console.log("좋아요 수 조회에 실패했습니다.\n", err);
+      }
+    }
+    getLikeData();
+  }, [post, post.Likes]);
+
   return (
     <>
       <ViewTitleBlock>
-        <div className="label">레시피</div>
+        <div className="label">{post.Groups === 1 ? "식당" : "레시피"}</div>
         <h1>{post.Title}</h1>
       </ViewTitleBlock>
       <ViewInfoBlock>
@@ -80,13 +105,21 @@ function PostViewHead({ post }: postProps) {
           <span className="pic"></span>
           <span>{post.User}</span>
           <span className="infoline"></span>
-          <span>{post.CreationTime}</span>
+          <span>
+            {typeof post.CreationTime === "string"
+              ? post.CreationTime.split("T")[0]
+              : post.CreationTime}
+          </span>
           <span className="infoline"></span>
-          <span>양식</span>
+          <span>{post.Type}</span>
         </PostInfoBlock>
         <LikeBlock>
-          <span className="like">좋아요</span>
-          <span className="count">{post.Likes}</span>
+          {liked ? (
+            <FaThumbsUp onClick={handleLike} />
+          ) : (
+            <FaRegThumbsUp onClick={handleLike} />
+          )}
+          <span className="count">{post.Likes ? post.Likes : 0}</span>
         </LikeBlock>
       </ViewInfoBlock>
       <Line></Line>

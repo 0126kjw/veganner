@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import * as Api from "../../api/api";
+import userState from "../../atoms/user";
+import { useRecoilValue } from "recoil";
+import { useNavigate } from "react-router-dom";
 
 const ViewCommentBlock = styled.div`
   width: 100%;
@@ -25,7 +28,7 @@ const CommentLabel = styled.div`
 const InputBox = styled.div`
   border: 0.5px solid;
   width: 100%;
-  height: 135px;
+  height: 120px;
   margin-top: 15px;
   margin-bottom: 20px;
   // padding: 20px 0 20px 0;
@@ -38,7 +41,7 @@ const InputBox = styled.div`
 
   textarea {
     width: 100%;
-    height: 125px;
+    height: 110px;
     // display: block;
     padding: 5px;
     border: none;
@@ -53,6 +56,7 @@ const InputBox = styled.div`
   textarea::placeholder {
     margin: 15px 0 0 15px;
     color: #21212180;
+    font-size: 14px;
   }
 
   button {
@@ -109,74 +113,107 @@ const CommentsInfo = styled.div`
 interface postProps {
   post: any;
 }
+
+interface UserData {
+  email: string;
+}
+
 function PostViewComment({ post }: postProps) {
+  const navigate = useNavigate();
+  const user = useRecoilValue(userState);
+
+  const [userData, setUserData] = useState<UserData>();
+
+  useEffect(() => {
+    async function getUserData() {
+      try {
+        const res = await Api.get(`user`);
+        setUserData(res.data);
+        console.log("유저 정보 가져오기에 성공했습니다.\n", res);
+      } catch (err) {
+        console.log("유저 정보 가져오기에 실패했습니다.\n", err);
+      }
+    }
+    getUserData();
+  }, [user]);
   interface Comment {
-    CommentId?: number;
+    CommentId: number;
     User_id: string;
     Comment: string;
     CreationTime?: string;
     PostId: number;
   }
-  const [comment, setComment] = useState<Comment>({
-    User_id: post.User,
-    PostId: post.ID,
-    Comment: "",
-  });
+
+  const [comment, setComment] = useState<string>("");
 
   const [comments, setComments] = useState<Array<Comment>>([]);
 
-  async function getComments() {
-    try {
-      const res = await Api.get(`board/${post.ID}/comments`);
-      // const res = await Api.get(`board/5/comments`);
-      setComments([...res.data]);
-      console.log(res);
-    } catch (err) {
-      console.log("댓글 불러오기에 실패했습니다.\n", err);
-    }
-  }
-
   useEffect(() => {
-    // if (!comment.PostId_id) {
-    //   return;
-    // }
+    async function getComments() {
+      try {
+        const res = await Api.get(`board/${post.ID}/comments`);
+        setComments([...res.data]);
+        console.log(res);
+      } catch (err) {
+        console.log("댓글 불러오기에 실패했습니다.\n", err);
+      }
+    }
     getComments();
-  }, []);
+  }, [post]);
 
   function handleInput(e: React.ChangeEvent<HTMLTextAreaElement>) {
-    const text = e.target.value;
-    setComment({
-      CommentId: comments.length + 1,
-      ...comment,
-      Comment: text,
-      CreationTime: new Date().toDateString(),
-    });
+    setComment(e.target.value);
   }
 
   async function handleSubmit(e: React.MouseEvent<HTMLButtonElement>) {
     e.preventDefault();
     e.stopPropagation();
 
-    const commentsList = [...comments, comment];
-    setComments(commentsList);
-
-    setComment({
-      User_id: post.User,
-      PostId: post.ID,
-      Comment: "",
-    });
-
     try {
       console.log(comment);
-      const res = await Api.post(
-        `board/${post.ID}/comments/`,
-        // `board/5/comments/`,
-        comment
-        // withCredentials: true,
-      );
+      let res = await Api.post(`board/${post.ID}/comments/`, {
+        Comment: comment,
+      });
       console.log("댓글 작성에 성공했습니다.\n", res);
+
+      res = await Api.get(`board/${post.ID}/comments`);
+      console.log(res.data);
+      setComments([...res.data]);
     } catch (err) {
       console.log("댓글 작성에 실패했습니다.\n", err);
+    } finally {
+      setComment("");
+    }
+  }
+
+  async function handleDelete(
+    e: React.MouseEvent<HTMLButtonElement>,
+    id: number
+  ) {
+    e.preventDefault();
+
+    try {
+      let res = await Api.delete(
+        `board/${post.ID}/comments`,
+        `?CommentId=${id}`
+      );
+      console.log("댓글 삭제에 성공했습니다.\n", res);
+
+      res = await Api.get(`board/${post.ID}/comments`);
+      console.log(res.data);
+      setComments([...res.data]);
+    } catch (err) {
+      console.log("댓글 삭제에 실패했습니다.\n", err);
+    }
+  }
+
+  function handleNoSubmit() {
+    if (window.confirm("로그인하고 댓글을 남겨주세요.")) {
+      try {
+        navigate("/login");
+      } catch (err) {
+        console.log(err);
+      }
     }
   }
 
@@ -191,22 +228,49 @@ function PostViewComment({ post }: postProps) {
         <textarea
           placeholder="로그인하고 댓글을 입력해보세요."
           onChange={handleInput}
-          value={comment.Comment}
+          value={comment}
         />
-        <button type="button" onClick={handleSubmit}>
-          작성
-        </button>
+        {userData ? (
+          <button type="button" onClick={handleSubmit}>
+            작성
+          </button>
+        ) : (
+          <button
+            type="button"
+            // onClick={() => alert("로그인하고 댓글을 남겨주세요.")}
+            onClick={handleNoSubmit}
+          >
+            작성
+          </button>
+        )}
       </InputBox>
-      {comments.map((element): any => {
+      {comments.map((comment: Comment): any => {
         return (
           <CommentsWrapper>
             <CommentsInfo>
               <span className="pic"></span>
-              <p>{element.User_id}</p>
-              <span className="date">{element.CreationTime}</span>
+              <p>{comment.User_id}</p>
+              <span className="date">
+                {typeof comment.CreationTime === "string"
+                  ? comment.CreationTime.split("T")[0]
+                  : comment.CreationTime}
+              </span>
+              <span className="date">
+                {typeof comment.CreationTime === "string"
+                  ? comment.CreationTime.split("T")[1].substring(0, 5)
+                  : comment.CreationTime}
+              </span>
             </CommentsInfo>
-            <div className="comment">{element.Comment}</div>
+            <div className="comment">{comment.Comment}</div>
             <button>답글</button>
+            {userData && userData.email === comment.User_id ? (
+              <button
+                type="button"
+                onClick={(e) => handleDelete(e, comment.CommentId)}
+              >
+                삭제
+              </button>
+            ) : null}
           </CommentsWrapper>
         );
       })}
@@ -215,12 +279,3 @@ function PostViewComment({ post }: postProps) {
 }
 
 export default PostViewComment;
-
-// {addComment.map((element,index) => {
-//   return <Comment
-//     value={element}
-//     isLogined={isLogined}
-//     key={element.date+JSON.stringify(index)}
-//     onDelete={onClickDeleteHandler}
-//     />
-// })}

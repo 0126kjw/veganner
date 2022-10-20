@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { Map, CustomOverlayMap, MapMarker } from "react-kakao-maps-sdk";
 import { Restaurant } from "../../types/restaurant";
 import * as S from "./DetailMap.styled";
+import mark from "../../assets/img/marker.png";
+import close from "../../assets/img/closeimg.png";
 
 interface itemProps {
   item: Restaurant;
@@ -30,7 +32,7 @@ function DetailMap({ item }: itemProps) {
             onClick={() => setIsOpen(true)}
             position={{ lat: item.y, lng: item.x }}
             image={{
-              src: "./assets/image/marker_icon-icons.com_54388.png",
+              src: mark,
               size: {
                 width: 24,
                 height: 35,
@@ -45,6 +47,7 @@ function DetailMap({ item }: itemProps) {
               <S.info>
                 <S.title>{item.name}</S.title>
                 <S.close
+                  src={close}
                   onClick={() => setIsOpen(false)}
                   title="닫기"
                 ></S.close>

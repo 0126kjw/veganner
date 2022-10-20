@@ -4,7 +4,7 @@ import logo from "../../assets/img/Veganner_logo.png";
 
 export const HeaderWrapper = styled.header`
   width: 100%;
-  height: 70px;
+  height: 65px;
   margin: 0 15px;
   display: flex;
   align-items: center;

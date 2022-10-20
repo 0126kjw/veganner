@@ -4,8 +4,6 @@ import { Reset } from "styled-reset";
 import Header from "./components/header/Header";
 import Main from "./pages/main/Main";
 import Insight from "./pages/insight/Insight";
-
-// import Share from "./pages/Share";
 import Login from "./pages/login/Login";
 import Register from "./pages/register/Register";
 import View from "./pages/postView/PostView";
@@ -15,7 +13,7 @@ import ResitemDetail from "./components/Map/ResitemDetail";
 import List from "./pages/list/List";
 import Kakao from "./pages/login/Kakao";
 import AddPost from "./pages/addPost/Addpost";
-
+import EditPost from "./pages/editPost/EditPost";
 function App() {
   return (
     <div>
@@ -26,10 +24,11 @@ function App() {
           <Route path="/" element={<Main />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
-          <Route path="/share" element={<List />} />
+          <Route path="/board" element={<List />} />
           <Route path="/board/:postId" element={<View />} />
-          <Route path="/insights" element={<Insight />} />
+          <Route path="/insight" element={<Insight />} />
           <Route path="/addPost" element={<AddPost />} />
+          <Route path="board/:postId/edit" element={<EditPost />} />
           {/* <Route path="/edit" element={<EditPost />} /> */}
           <Route path="/explore" element={<Map />} />
           <Route

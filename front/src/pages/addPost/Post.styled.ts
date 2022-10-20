@@ -6,7 +6,7 @@ export const PostLayout = styled.div`
 `;
 
 export const TitleInput = styled.input`
-  width: 580px;
+  width: 500px;
   height: 50px;
   border: none;
   border-bottom: 1px solid #212121;
@@ -29,7 +29,7 @@ export const LocationRegisterBar = styled.input`
   border: none;
   border: 0.5px solid #212121;
   display: block;
-  margin: 0 auto 30px auto;
+  margin: 0 auto;
   font-size: 16px;
   text-align: left;
   padding-left: 20px;
@@ -43,7 +43,6 @@ export const LocationRegisterBar = styled.input`
 export const ThumbnailInput = styled.input`
   width: 300px;
   height: 50px;
-  display: block;
   line-height: 50px;
   float: right;
 `;

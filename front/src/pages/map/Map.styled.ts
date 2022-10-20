@@ -2,15 +2,27 @@ import styled from "styled-components";
 import { Link } from "react-router-dom";
 
 // 전체
-export const Title = styled.section`
+export const Title = styled.div`
   margin: auto;
-  font-size: 25px;
   text-align: center;
   font-family: Noto Sans KR;
 `;
+
+export const Title1 = styled.div`
+  margin: 15px;
+  color: #004d43;
+  height: 20px;
+  font-size: 25px;
+  font-weight: bold;
+`;
+
+export const Title2 = styled.div`
+  margin: 20px 0 0 0;
+  font-size: 20px;
+`;
 export const Layout = styled.section`
   display: flex;
-  margin: 80px auto;
+  margin: 30px auto;
   width: 1400px;
   height: 100vh;
   border-radius: 5px;
@@ -78,26 +90,27 @@ export const select_button = styled.button`
   background: transparent;
 `;
 export const optionList = styled.ul`
-  position: stickey;
+  position: relative;
   // display: block;
   top: 28px;
 
-  width: 70px;
+  width: 80px;
   border-radius: 5px;
   border: 2px lightgray solid;
-  margin: 5px 3px 5px 2px;
-  background: #ffffff;
+  margin: -20px 4px 5px -2px;
+  background-color: #ffffff;
   // overflow: hidden;
   transition: 0.3s ease-in;
 `;
 export const optionitem = styled.li`
   border-bottom: 2px solid lightgray;
   padding: 5px 15px 5px;
+  margin: auto;
   transition: 0.1s;
-
+  height: 15px;
   text-align: center;
   font-size: 10px;
-  background: #ffffff;
+  background-color: #ffffff;
 
   :hover {
     background: #cdea67;
@@ -107,17 +120,18 @@ export const optionitem = styled.li`
 export const resContainer = styled.div`
   position: block;
   width: 500px;
-  height: 100%;
-
+  height: 78vh;
   background: #ffffff;
   border-radius: 20px;
+  overflow: auto;
 `;
 // Resitem
 // 식당 리스트 1개
 export const restaurant = styled.div`
   display: block;
+  height: 
   border-bottom: 2px solid #f1f1f1;
-  padding: 28px 45px;
+  padding: 25px 40px;
 `;
 
 export const stylelink = styled(Link)`
@@ -128,10 +142,10 @@ export const h2 = styled.h2`
   display: block;
   font-weight: 700;
   margin-bottom: 8px;
-  position: relative;
+  // position: relative;
   text-decoration-line: none;
   color: rgb(58, 58, 58);
-  font-size: 20px;
+  font-size: 15px;
 `;
 
 export const p = styled.p`
@@ -142,6 +156,7 @@ export const p = styled.p`
   margin-inline-end: 0px;
   color: rgb(58, 58, 58);
   line-height: 1.5;
+  font-size: 13px;
 `;
 
 export const boxdiv = styled.div`
@@ -160,15 +175,18 @@ export const box = styled.div`
   border: 2px solid #cdea67;
   background: #cdea67;
   background-size: 10px;
-  padding: 5px 7px;
-  margin: 5px 10px 5px 0;
+  padding: 4px 6px;
+  margin: 4px 9px 4px 0;
   color: light gray;
-  font-size: 15px;
-  // box-sizing: border-box;
+  font-size: 13px;
 `;
 
+// 페이지네이션 박스
 export const pagination = styled.div`
-  display: block;
+  display: flex;
+  width: 20vh;
+  // align-items: center;
+  // justify-content: center;
 `;
 
 // MainMap
@@ -182,4 +200,16 @@ export const MainMap = styled.div`
 // Paging
 export const paging = styled.div`
   display: flex;
+  height: 5vh;
+  justify-content: center;
+  text-align: center;
+  padding: 7px;
+  margin-left: 85px;
+  margin-top: -80px;
+  margin-bottom: 80px;
+`;
+
+//
+export const backicon = styled.img`
+  margin: 10px;
 `;

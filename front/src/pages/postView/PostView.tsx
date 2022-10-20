@@ -1,19 +1,10 @@
 import React, { useState, useEffect } from "react";
-import Search from "../list/Search";
-import List from "../list/List";
-import { createGlobalStyle } from "styled-components";
 import PostViewHead from "./PostViewHead";
 import PostViewContent from "./PostViewContent";
 import PostViewComment from "./PostViewComment";
 import * as Api from "../../api/api";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
-
-const GlobalStyle = createGlobalStyle`
-  body {
-    background-color: #f1f1f1;
-  }
-`;
 
 const PostViewLayout = styled.div`
   width: 70%;
@@ -32,58 +23,56 @@ const PostViewLayout = styled.div`
   color: #212121;
 `;
 
+const ErrorPage = styled.div`
+  display: flex;
+  justify-content: center;
+  margin-top: 100px;
+`;
+
 function PostView() {
+  const navigate = useNavigate();
+  const { postId } = useParams();
   interface Post {
-    Type: string;
-    Title: string;
-    Thumbnail?: string;
-    CreationTime?: string;
+    ID?: number;
     User: string;
-    Likes: number;
+    Title: string;
+    Content: string;
+    Thumbnail?: string;
+    Type?: string;
     Hashtag?: string;
+    CreationTime?: string;
+    Groups: number;
+    RestaurantId?: number;
+    Address?: string;
+    Likes?: number;
   }
 
-  const [post, setPost] = useState<Post>({
-    Type: "",
-    Title: "",
-    Thumbnail: "",
-    User: "",
-    Likes: 0,
-    Hashtag: "#",
-  });
-
-  const { postId } = useParams();
-  console.log(postId);
-  //const item = getPost(postId);
+  const [post, setPost] = useState<Post | null>(null);
 
   useEffect(() => {
     async function getPost() {
       try {
-        const res = await Api.get(`board/${postId}`);
+        let res = await Api.get(`board/${postId}`);
         console.log(res.data);
         setPost(res.data);
       } catch (err) {
         console.log("글 불러오기를 실패했습니다.\n", err);
+        // navigate("/share", { replace: true });
       }
     }
     getPost();
-  }, [postId]);
+  }, [postId, navigate]);
 
-  // useEffect(() => {
-  //   console.log(match);
-  //   getPost(match.params.id);
-  // }, []);
-
-  return (
-    <>
-      <GlobalStyle />
+  if (post) {
+    return (
       <PostViewLayout>
         <PostViewHead post={post}></PostViewHead>
         <PostViewContent post={post}></PostViewContent>
         <PostViewComment post={post}></PostViewComment>
       </PostViewLayout>
-    </>
-  );
+    );
+    // } else return <ErrorPage> 존재하지 않는 글입니다! </ErrorPage>;
+  } else return <ErrorPage></ErrorPage>;
 }
 
 export default PostView;

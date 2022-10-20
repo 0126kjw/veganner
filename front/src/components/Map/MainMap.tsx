@@ -1,4 +1,3 @@
-import React from "react";
 import { Map } from "react-kakao-maps-sdk";
 import Marker from "./Marker";
 import * as S from "../../pages/map/Map.styled";

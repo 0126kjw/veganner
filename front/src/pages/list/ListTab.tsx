@@ -1,14 +1,43 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import listsState from "../../atoms/search";
+import groupState from "../../atoms/group";
 import { useRecoilValue, useResetRecoilState, useRecoilState } from "recoil";
 import * as Api from "../../api/api";
 import * as L from "./List.styled";
 import { SetStateAction, Dispatch } from "react";
+import axios from "axios";
 
 export default function Tab() {
   const [line, setLine] = useState(false);
   const [lists, setLists] = useRecoilState(listsState);
-  const [group, setGroup] = useState(0);
+  const [group, setGroup] = useRecoilState(groupState);
+  useEffect(() => {
+    const userData = async () => {
+      if (group == 0) {
+        await Api.get("board").then((res) => {
+          setLists(res.data.list);
+          console.log("list",lists)
+          // setCurrentPosts(res.data.patientList.slice(indexOfFirstPost, indexOfLastPost))
+        });
+      }
+      await axios
+        .get(`board?Groups=${group}`, {
+          // JWT 토큰을 헤더에 담아 백엔드 서버에 보냄.
+          headers: {
+            "Content-Type": "application/json",
+          },
+        })
+        .then((res) => {
+          setLists(res.data.list);
+          console.log("list",lists)
+          // setCurrentPosts(res.data.patientList.slice(indexOfFirstPost, indexOfLastPost))
+        });
+    };
+    userData();
+    console.log("list", lists);
+    // const lists=useRecoilValue(listsState)
+  }, [group]);
+
   // const data = [
   //   {
   //     id: 0,
@@ -28,29 +57,20 @@ export default function Tab() {
   // ];
 
   return (
-    <section>
+    <L.TabSection>
       <L.TabListGroup>
-        <L.TabList
-          onClick={(e) => setGroup(0)}
-          active={group === 0}
-        >
+        <L.TabList onClick={(e) => setGroup(0)} active={group === 0}>
           전체
         </L.TabList>
-        <L.TabList
-          onClick={(e) =>setGroup(1)}
-          active={group === 1}
-        >
+        <L.TabList onClick={(e) => setGroup(1)} active={group === 1}>
           식당
         </L.TabList>
-        <L.TabList
-          onClick={(e) => setGroup(2)}
-          active={group === 2}
-        >
+        <L.TabList onClick={(e) => setGroup(2)} active={group === 2}>
           레시피
         </L.TabList>
 
         {/* onClick={() => setIndex(item.id)} */}
       </L.TabListGroup>
-    </section>
+    </L.TabSection>
   );
 }

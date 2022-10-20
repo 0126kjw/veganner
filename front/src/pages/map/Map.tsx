@@ -5,7 +5,6 @@ import Location from "../../datas/seoul.json";
 import { Restaurant } from "../../types/restaurant";
 import { useNavigate } from "react-router-dom";
 import Paging from "../../components/Map/Paging";
-import Page from "../../components/Map/Page";
 import * as S from "./Map.styled";
 import { DefaultValue } from "recoil";
 // import { setServers } from "dns";;
@@ -49,7 +48,7 @@ const initialTypeValues = [
   "한식",
 ];
 
-const initialVeganValues = ["채식음식점", "채식가능음식점"];
+const initialVeganValues = ["채식 전문", "채식 가능"];
 
 function Map() {
   const navigate = useNavigate();
@@ -61,12 +60,7 @@ function Map() {
   const [indexOfLastPost, setIndexOfLastPost] = useState(0);
   const [indexOfFirstPost, setIndexOfFirstPost] = useState(0);
   const [currentPosts, setCurrentPosts] = useState(result);
-
-  // const [lists, setLists] = useState(result); // 백엔드와 통신하여 모든 데이터를 setLists 에 저장해서 사용
-  // const [limit, setLimit] = useState(5); // 한 페이지에 보여줄 데이터의 개수
-  // const [page, setPage] = useState(1); // 페이지 초기 값은 1페이지
-  // const [counts, setCounts] = useState(1); // 데이터의 총 개수를 setCounts 에 저장해서 사용
-  // const [blockNum, setBlockNum] = useState(0); // 한 페이지에 보여 줄 페이지네이션의 개수를 block으로 지정하는 state. 초기 값은 0
+  const [postsPerPage, setPostsPerPage] = useState(5);
 
   //카테고리 지역관련
   const [regions, setRegions] = useState<string[]>(initialRegionValues);
@@ -83,24 +77,7 @@ function Map() {
   const [selectedVegan, setSelectedVegan] = useState<string | null>(null);
   const [isOpenVeganList, setIsOpenVeganList] = useState<boolean>(false);
 
-  // useEffect(() => {
-  //   parks &&
-  //     setParklist(
-  //       parks.map((item, idx) => {
-  //         let park_id = item.id;
-  //         return (
-  //           <ParkList key={park_id} item={item} idx={idx} park_id={park_id} />
-  //         );
-  //       })
-  //     );
-  // }, [parks]);
-
   useEffect(() => {
-    // console.log("useEffect");
-    // console.log("selectedRegion", selectedRegion);
-    // console.log("selectedType", selectedType);
-    // console.log("selectedVegan", selectedVegan);
-
     const filteredStores = list
       .filter((item) =>
         selectedRegion ? item.borough === selectedRegion : item
@@ -116,32 +93,21 @@ function Map() {
     const { innerText } = e.currentTarget;
     setSelectedRegion(innerText);
     setIsOpenRegionList(!isOpenRegionList);
-
-    // const filteredStores = result.filter((item) => item.borough === innerText);
-    // setResult(filteredStores);
   }
 
   function handleSelectType(e: React.MouseEvent<HTMLElement>) {
     const { innerText } = e.currentTarget;
     setSelectedType(innerText);
     setIsOpenTypeList(!isOpenTypeList);
-
-    // const filteredStores = result.filter((item) => item.industry === innerText);
-    // setResult(filteredStores);
   }
 
   function handleSelectVegan(e: React.MouseEvent<HTMLElement>) {
     const { innerText } = e.currentTarget;
     setSelectedVegan(innerText);
     setIsOpenVeganList(!isOpenVeganList);
-
-    // const filteredStores = result.filter((item) => item.food === innerText);
-    // setResult(filteredStores);
   }
 
   // 검색
-  // 필터링까지는 됨 근데 왜 오류??? 다시 리셋됨 why???????
-
   function handleSearch(e: any) {
     e.preventDefault();
     const searchedStores = list.filter((item) =>
@@ -159,17 +125,21 @@ function Map() {
   }
 
   //페이지네이션
+  // const indexOfLastPost = currentpage * postsPerPage;
+  // const indexOfFirstPost = indexOfLastPost - postsPerPage;
+  // const post = result.slice(indexOfFirstPost, indexOfLastPost);
+  // setCurrentPosts(post);
   useEffect(() => {
-    setIndexOfLastPost(currentpage * 10);
-    setIndexOfFirstPost(indexOfLastPost - 10);
+    setIndexOfLastPost(currentpage * 5);
+    setIndexOfFirstPost(indexOfLastPost - 5);
     setCurrentPosts(result.slice(indexOfFirstPost, indexOfLastPost));
   }, [currentpage, indexOfFirstPost, indexOfLastPost, result, 5]);
 
   return (
     <>
       <S.Title>
-        <div>Explore the Vegan World.</div>
-        <div>비거너의 비건 맛집 지도를 자유롭게 이용해 보세요.</div>
+        <S.Title1>Explore the Vegan World.</S.Title1>
+        <S.Title2>비거너의 비건 맛집 지도를 자유롭게 이용해 보세요.</S.Title2>
       </S.Title>
       <S.Layout>
         <S.resMenu>
@@ -250,14 +220,14 @@ function Map() {
               {currentPosts.map((item) => (
                 <Resitem key={item.index} item={item as Restaurant} />
               ))}
-              <S.pagination>
-                <Paging
-                  item={result}
-                  page={currentpage}
-                  setPage={setCurrentpage}
-                />
-              </S.pagination>
             </S.resContainer>
+            <S.pagination>
+              <Paging
+                item={result}
+                page={currentpage}
+                setPage={setCurrentpage}
+              />
+            </S.pagination>
           </S.searchContainer>
         </S.resMenu>
 
