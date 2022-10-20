@@ -1,8 +1,9 @@
 import styled, { css } from "styled-components";
 
 export const WholeLayout = styled.div`
-  width: 80%;
+width: 1815px;
   margin: 0 auto;
+  position:relative
 `;
 
 export const ListTitle = styled.div`
@@ -13,8 +14,8 @@ export const ListTitle = styled.div`
   text-align: center;
   letter-spacing: -1.2px;
   color: #004d43;
+  margin-top: 5%;
 `;
-
 
 export const ListText = styled.div`
   text-align: center;
@@ -23,19 +24,17 @@ export const ListText = styled.div`
   line-height: 22px;
   letter-spacing: -1.2px;
   color: #212121;
-
 `;
 
-export const SearchWrapper = styled.form`
-position:relative;
-width:700px;
-margin:0 auto;
+export const SearchWrapper = styled.div`
+  position: relative;
+  width: 700px;
+  margin: 0 auto;
 `;
 
-
-export const SearchForm = styled.form`
+export const SearchBox = styled.div`
   text-align: center;
-  position:relative;
+  position: relative;
   width: 550px;
   margin:0 auto;
   margin-bottom:8%
@@ -50,21 +49,20 @@ border-radius:30px;
 
 `;
 
-
 export const SearchButton = styled.button`
 position: absolute;
 width: 50px;
 height: 50px;
 background: #212121;
 border-radius:50%;
-top: 4%;
+top: 3%;
 right: -5px;
 cursor:pointer
 
 `;
 
 export const CardLayout = styled.div`
-  width: 80%;
+  width:1920px;
   margin: 0 auto;
 `;
 
@@ -83,6 +81,7 @@ export const CardHeader = styled.div`
   height: 30px;
   line-height: 30px;
   border-bottom: 0.5px solid rgba(33, 33, 33, 0.3);
+  position:relative;
 `;
 
 export const CardHeaderProfile = styled.span`
@@ -124,11 +123,9 @@ margin-top: 4%;
 }
 `;
 
-
-
 export const TabListGroup = styled.ul`
   display: flex;
-  
+
   justify-content: space-evenly;
 `;
 
@@ -136,7 +133,7 @@ export const TabList = styled.li<{ active?: boolean }>`
   font-size: 16px;
   color: #000000;
   font-weight: 500;
-  cursor:pointer;
+  cursor: pointer;
   ${({ active }) =>
     active &&
     css`
@@ -145,7 +142,26 @@ export const TabList = styled.li<{ active?: boolean }>`
 `;
 
 export const WriteButton = styled.button`
-  float: right;
+position: absolute;
+right: 0;
+  width: 100px;
+height: 50px;
+font-style: normal;
+font-weight: 400;
+font-size: 14px;
+line-height: 50px;
+background: #004D43;
+border-radius: 30px;
+
+margin-top: 2%;
+
+color: #F1F1F1;
+
 `;
 
 
+export const likeWrap = styled.div`
+position:absolute;
+right:1%;
+top:0
+`;

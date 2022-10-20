@@ -12,7 +12,7 @@ function Share() {
   };
   return (
     <>
-      <Search />
+      {/* <Search /> */}
       <View />
       <button onClick={navigateToWrite}>글쓰기</button>
     </>
