@@ -62,7 +62,7 @@ function AddPost({ tuiEditor }: AddPostProps) {
 
     try {
       await axios
-        .post("http://localhost:8000/board/", formData, {
+        .post("https://veganner-back.herokuapp.com/board/", formData, {
           headers: {
             "Content-Type": "multipart/form-data",
           },

@@ -16,14 +16,14 @@ function TuiEditor(props: EditorProps) {
     console.log(formData);
 
     const { data: url } = await axios.post(
-      "http://localhost:8000/board/img/",
+      "https://veganner-back.herokuapp.com/board/img/",
       formData,
       {
         headers: { "Content-Type": "multipart/form-data" },
       }
     );
     console.log(url["Image"]);
-    const imgSrc = "http://localhost:8000/board" + url["Image"];
+    const imgSrc = "https://veganner-back.herokuapp.com/board" + url["Image"];
     callback(imgSrc, "image");
   };
 

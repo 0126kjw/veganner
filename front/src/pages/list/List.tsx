@@ -53,7 +53,7 @@ function ViewList() {
       //     });
 
       await axios
-        .get("board", {
+        .get("https://veganner-back.herokuapp.com/board", {
           headers: {
             "Content-Type": "application/json",
           },
