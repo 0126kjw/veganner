@@ -12,12 +12,14 @@ font-weight: 700;
 font-size: 30px;
 text-align:center;
 color: #212121;
+margin-top:17%
 `;
 
 export const LoginForm = styled.form`
 margin:0 auto;
 width:100%;
 text-align:center;
+margin-top: 5%;
 `;
 
 
@@ -42,6 +44,7 @@ text-align:center;
 margin:0 auto;
 cursor:pointer;
 font-size: 18px;
+margin-top: 5%;
 `;
 
 export const RegisterButton = styled.button`
@@ -56,6 +59,7 @@ margin:0 auto;
 cursor:pointer;
 border:none;
 font-size: 18px;
+margin-top: 1.5%;
 `;
 
 export const KaKaoButton = styled.button`
@@ -70,7 +74,7 @@ margin:0 auto;
 cursor:pointer;
 border:none;
 font-size: 18px;
+margin-top: 1.5%;
 `;
-
 
 

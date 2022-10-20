@@ -4,6 +4,7 @@ import styled, { css } from "styled-components";
 export const WholeLayout = styled.form`
   width: 50%;
   margin: 0 auto;
+  margin-top: 10%;
 `;
 
 export const RegisterTitle = styled.div`
@@ -12,6 +13,7 @@ font-weight: 700;
 font-size: 30px;
 text-align:center;
 color: #212121;
+margin-bottom:5%
 `;
 
 export const LoginForm = styled.form`
@@ -43,7 +45,8 @@ border: 1px solid #D9D9D9;
 border-radius: 5px;
 display:block;
 margin:0 auto;
-position:relative
+position:relative;
+
 
 
 `;
@@ -58,7 +61,8 @@ color:white;
 position:absolute;
 right: 0;
 top: 10%;
-cursor:pointer
+cursor:pointer;
+
 
 
 `;
@@ -70,7 +74,9 @@ border: 1px solid #D9D9D9;
 border-radius: 5px;
 display:block;
 margin:0 auto;
-position:relative
+position:relative;
+margin-bottom:3%;
+margin-top:2%;
 `;
 
 export const LoginButton = styled.button`
@@ -84,7 +90,8 @@ text-align:center;
 margin:0 auto;
 cursor:pointer;
 font-size: 18px;
-border:none
+border:none;
+margin-top:2%
 `;
 
 export const RegisterButton = styled.button`
@@ -99,6 +106,8 @@ margin:0 auto;
 cursor:pointer;
 border:none;
 font-size: 18px;
+margin-bottom:2%;
+margin-top:3%;
 `;
 
 export const KaKaoButton = styled.button`
@@ -114,6 +123,4 @@ cursor:pointer;
 border:none;
 font-size: 18px;
 `;
-
-
 
