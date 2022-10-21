@@ -14,6 +14,7 @@ import List from "./pages/list/List";
 import Kakao from "./pages/login/Kakao";
 import AddPost from "./pages/addPost/Addpost";
 import EditPost from "./pages/editPost/EditPost";
+import ChartView from "./components/chart/ChartView";
 function App() {
   return (
     <div>
@@ -36,6 +37,7 @@ function App() {
             element={<ResitemDetail detail={data.data} />}
           />
           <Route path="/auth/kakao/callback" element={<Kakao />} />
+          <Route path="/chart" element={<ChartView />} />
         </Routes>
       </BrowserRouter>
     </div>

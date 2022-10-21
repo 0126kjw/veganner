@@ -1,5 +1,4 @@
 import * as S from "../../pages/map/Map.styled";
-import * as P from "../../pages/map/Map.styled";
 import DetailMap from "./DetailMap";
 import { useParams, Link } from "react-router-dom";
 import back from "../../assets/img/back.png";
@@ -21,7 +20,7 @@ function ResitemDetail({ detail }: ItemProps) {
       <S.Layout>
         <S.resMenu>
           <S.searchContainer>
-            <S.resContainer>
+            <S.icon>
               <Link to="/explore">
                 <S.backicon
                   src={back}
@@ -30,14 +29,16 @@ function ResitemDetail({ detail }: ItemProps) {
                   className="backIcon"
                 />
               </Link>
+            </S.icon>
+            <S.resContainer>
               <S.restaurant>
                 <S.h2>{`${matched.name}`}</S.h2>
                 <S.p>주소 : {`${matched.location}`}</S.p>
                 <S.p>전화번호 : {`${matched.number}`}</S.p>
-                <P.boxdiv>
-                  <P.box>{matched.industry}</P.box>
-                  <P.box>{matched.food}</P.box>
-                </P.boxdiv>
+                <S.boxdiv>
+                  <S.box>{matched.industry}</S.box>
+                  <S.box>{matched.food}</S.box>
+                </S.boxdiv>
               </S.restaurant>
             </S.resContainer>
           </S.searchContainer>

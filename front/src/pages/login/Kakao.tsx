@@ -43,10 +43,8 @@ function KakaoLogin() {
             }),
           }).then((res) => {
             localStorage.clear();
-            console.log("res", res);
             window.sessionStorage.setItem("email", "kakao");
             setUser({ email: "kakao", password: "" });
-            console.log("pathname",pathname)
             navigate("/", { state: pathname });
           });
         } else {
@@ -60,7 +58,10 @@ function KakaoLogin() {
     getKakaoToken();
   }, []);
 
-  return <div>KakaoLogin</div>;
+  return <div>
+    <p>카카오로 로그인 중입니다.</p>
+    <p>잠시만 기다려 주세요...</p>
+    </div>;
 }
 
 export default KakaoLogin;

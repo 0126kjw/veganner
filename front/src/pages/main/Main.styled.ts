@@ -50,6 +50,7 @@ export const WithButton = styled.button`
   margin-top: 15px;
   font-size: 20px;
   color: #f1f1f1;
+  cursor:pointer;
 `;
 
 export const PageLayout = styled.div<MainStyledProps>`
@@ -68,7 +69,7 @@ export const RowTextBox = styled.div`
   width: 1000px;
   height: 120px;
   text-align: left;
-  margin: 15vh auto 5vh auto;
+  margin: 5vh 0;
   color: #212121;
 `;
 
@@ -98,12 +99,16 @@ export const ChartLayout = styled.div`
   justify-content: center;
 `;
 export const ChartBox = styled.div`
-  width: 450px;
-  height: 400px;
+  width: 550px;
+  height: 350px;
   text-align: center;
   background-color: #ffffff;
   border-radius: 15px;
-  margin: 30px 50px;
+  margin: 30px 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
 `;
 
 export const ImageBox = styled.div<MainStyledProps>`
@@ -118,11 +123,11 @@ export const ImageBox = styled.div<MainStyledProps>`
 `;
 
 export const ChartText = styled.div`
-  font-size: 16px;
-  font-weight: 300;
+  font-size: 14px;
+  font-weight: 500;
   text-align: center;
-  margin: 0 auto 10px auto;
-  color: #212121;
+  margin: 30px auto 10px auto;
+  color: #004d43;
 `;
 
 export const CardLayout = styled.div`
@@ -156,4 +161,5 @@ export const CardButton = styled.button<MainStyledProps>`
   float: right;
   margin-top: 30px;
   background-color: transparent;
+  cursor:pointer
 `;

@@ -1,11 +1,11 @@
 import React from "react";
 import * as S from "./Main.styled";
-import foodEmission from "../../assets/data-analysis/foodEmission.png";
-import foodEmissionToCar from "../../assets/data-analysis/foodEmissionToCar.png";
 import left_img from "../../assets/img/left_img.png";
 import right_img from "../../assets/img/right_img.png";
 import veganism_background from "../../assets/img/veganism_background.jpeg";
 import { useNavigate } from "react-router-dom";
+import FoodEmissionBar from "../../components/chart/foodEmission/FoodEmissionBar";
+import FoodEmissionToCarBar from "../../components/chart/foodEmission/FoodEmissionToCarBar";
 
 function Main() {
   const navigate = useNavigate();
@@ -41,30 +41,33 @@ function Main() {
           <S.MediumTitleText color={"#212121"} textAlign={"left"}>
             “오늘도 고기 드셨나요?”
           </S.MediumTitleText>
-          <S.Text fontSize={18} color={"#212121"} textAlign={"left"}>
-            일주일에 하루만 고기를 먹지 않아도
+          <S.Text fontSize={16} color={"#212121"} textAlign={"left"}>
+            고기는 야채보다 100배 더 많은 온실가스를 배출하고 있어요.
           </S.Text>
-          <S.Text fontSize={18} color={"#212121"} textAlign={"left"}>
-            자동차가 1.6km를 달리면서 뿜어내는 것과 동일한 온실가스를 감축할 수
-            있어요.
+          <S.Text fontSize={16} color={"#212121"} textAlign={"left"}>
+            심지어 국내 자동차 중 연비가 상대적으로 좋은 현대 그랜저 하이브리드
+            모델을 기준으로 비교해봐도,
+          </S.Text>
+          <S.Text fontSize={16} color={"#212121"} textAlign={"left"}>
+            고작 소고기 1kg를 생산할 때 배출되는 온실 가스량이 해당 자동차가 약
+            1000km 달렸을 때와 같았어요.
           </S.Text>
         </S.RowTextBox>
         <S.ChartLayout>
           <S.ChartBox>
-            <S.ImageBox backgroundImg={foodEmission}></S.ImageBox>
+            <FoodEmissionBar />
             <S.ChartText>소고기, CO2e를 배출하는 음식 1위</S.ChartText>
           </S.ChartBox>
           <S.ChartBox>
-            <S.ImageBox backgroundImg={foodEmissionToCar}></S.ImageBox>
-            <S.ChartText>소고기 1kg,</S.ChartText>
+            <FoodEmissionToCarBar />
             <S.ChartText>
-              자동차가 약 1000km 주행했을 때와같은 CO2e 배출
+              소고기 1kg, 자동차가 약 1000km 주행했을 때와같은 CO2e 배출
             </S.ChartText>
           </S.ChartBox>
         </S.ChartLayout>
       </S.PageLayout>
 
-      <S.PageLayout height={"350px"}>
+      <S.PageLayout height={"35vh"}>
         <S.TextBox>
           <S.MediumTitleText color={"#004d43"} textAlign={"center"}>
             “Begin a Vegan” with Vegganer.

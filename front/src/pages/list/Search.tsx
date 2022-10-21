@@ -52,7 +52,7 @@ function ListSearch({ setKeyword, ...props }: Props) {
           onChange={handleChangeKeyword}
         />
         <L.SearchButton type="button" onClick={() => setKeyword(inputState)}>
-          <FaSearch color="white" />
+          <FaSearch color="white" size="25"/>
         </L.SearchButton>
       </L.SearchBox>
 

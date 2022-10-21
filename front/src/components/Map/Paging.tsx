@@ -14,7 +14,7 @@ function Paging({ item, page, setPage }: PagingProps) {
     <S.paging>
       <Pagination
         activePage={page}
-        itemsCountPerPage={5}
+        itemsCountPerPage={10}
         totalItemsCount={item.length}
         pageRangeDisplayed={5}
         onChange={setPage}

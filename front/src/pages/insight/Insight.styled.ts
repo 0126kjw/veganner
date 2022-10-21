@@ -10,6 +10,7 @@ export interface InsightStyledProps {
   flexDirection?: string;
   fontWeight?: number;
   lineHeight?: string;
+  width?: string;
 }
 
 export const Insight = styled.div`
@@ -52,7 +53,7 @@ export const RowTextBox = styled.div`
   width: 1000px;
   height: 120px;
   text-align: left;
-  margin: 10vh auto 5vh auto;
+  margin: 5vh auto 5vh auto;
   color: #212121;
 `;
 
@@ -61,27 +62,31 @@ export const Text = styled.div<InsightStyledProps>`
   font-weight: 500;
   text-align: ${(props) => props.textAlign};
   color: ${(props) => props.color};
-  margin-bottom: 8px;
+  margin-top: 10px;
 `;
 
 export const ChartLayout = styled.div`
   display: flex;
   justify-content: center;
 `;
-export const ChartBox = styled.div`
-  width: 500px;
-  height: 370px;
+export const ChartBox = styled.div<InsightStyledProps>`
+  width: ${(props) => props.width};
+  height: ${(props) => props.height};
   text-align: center;
   background-color: #ffffff;
   border-radius: 15px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
   margin: 20px 10px;
 `;
 
 export const ImageBox = styled.div<InsightStyledProps>`
-  width: 450px;
-  height: 300px;
+  width: 280px;
+  height: 220px;
   text-align: center;
-  margin: 20px auto 10px auto;
+  margin: 10px auto;
   background-image: url(${(props) => props.backgroundImg});
   display: flex;
   background-size: contain;
@@ -113,7 +118,7 @@ export const AnimalButtonLayout = styled.div`
   margin: 0 auto;
   /* justify-content: center;
   align-items: center; */
-  margin: 40px auto;
+  margin: 30px auto;
 `;
 export const AnimalButton = styled.button<InsightStyledProps>`
   border: none;
@@ -124,6 +129,7 @@ export const AnimalButton = styled.button<InsightStyledProps>`
   background-repeat: no-repeat;
   margin: 0 70px;
   background-color: transparent;
+  cursor:pointer;
   :focus {
     border: none;
     outline: none;
@@ -135,18 +141,21 @@ export const AnimalButton = styled.button<InsightStyledProps>`
 `;
 
 export const AnimalChartBox = styled.div`
-  width: 600px;
-  height: 420px;
+  width: 450px;
+  height: 450px;
   text-align: center;
   background-color: #ffffff;
   border-radius: 15px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-bottom: 10px;
 `;
 
 export const AnimalChartImg = styled.div<InsightStyledProps>`
   width: 380px;
   height: 380px;
   text-align: center;
-  margin: 20px auto 10px auto;
   background-image: url(${(props) => props.backgroundImg});
   display: flex;
   background-size: contain;
@@ -157,7 +166,9 @@ export const ButtonBox = styled.div`
   width: 200px;
   height: 30px;
   display: flex;
-  margin: 0.5vh auto;
+  margin: 3vh auto 0 auto;
+  justify-content: center;
+  align-items: center;
 `;
 
 export const Button = styled.button`
@@ -175,5 +186,8 @@ export const Button = styled.button`
     height: 30px;
     font-size: 17px;
     font-weight: 1000;
+  }
+  :active {
+    border: none;
   }
 `;

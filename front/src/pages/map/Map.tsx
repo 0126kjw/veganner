@@ -7,10 +7,10 @@ import { useNavigate } from "react-router-dom";
 import Paging from "../../components/Map/Paging";
 import * as S from "./Map.styled";
 import { DefaultValue } from "recoil";
-// import { setServers } from "dns";;
 
 const list = Location.data;
 const initialRegionValues = [
+  "전체",
   "강남구",
   "강동구",
   "강북구",
@@ -37,6 +37,7 @@ const initialRegionValues = [
 ];
 
 const initialTypeValues = [
+  "전체",
   "동남아",
   "분식",
   "베이커리",
@@ -48,7 +49,7 @@ const initialTypeValues = [
   "한식",
 ];
 
-const initialVeganValues = ["채식 전문", "채식 가능"];
+const initialVeganValues = ["전체", "채식 전문", "채식 가능"];
 
 function Map() {
   const navigate = useNavigate();
@@ -60,7 +61,7 @@ function Map() {
   const [indexOfLastPost, setIndexOfLastPost] = useState(0);
   const [indexOfFirstPost, setIndexOfFirstPost] = useState(0);
   const [currentPosts, setCurrentPosts] = useState(result);
-  const [postsPerPage, setPostsPerPage] = useState(5);
+  const [postsPerPage, setPostsPerPage] = useState(10);
 
   //카테고리 지역관련
   const [regions, setRegions] = useState<string[]>(initialRegionValues);
@@ -79,11 +80,27 @@ function Map() {
 
   useEffect(() => {
     const filteredStores = list
-      .filter((item) =>
-        selectedRegion ? item.borough === selectedRegion : item
-      )
-      .filter((item) => (selectedType ? item.industry === selectedType : item))
-      .filter((item) => (selectedVegan ? item.food === selectedVegan : item));
+      .filter((item) => {
+        if (selectedRegion === "전체" || selectedRegion === null) {
+          return item;
+        } else {
+          return item.borough === selectedRegion;
+        }
+      })
+      .filter((item) => {
+        if (selectedType === "전체" || selectedType === null) {
+          return item;
+        } else {
+          return item.industry === selectedType;
+        }
+      })
+      .filter((item) => {
+        if (selectedVegan === "전체" || selectedVegan === null) {
+          return item;
+        } else {
+          return item.food === selectedVegan;
+        }
+      });
 
     setResult(filteredStores);
   }, [selectedType, selectedVegan, selectedRegion]);
@@ -130,8 +147,8 @@ function Map() {
   // const post = result.slice(indexOfFirstPost, indexOfLastPost);
   // setCurrentPosts(post);
   useEffect(() => {
-    setIndexOfLastPost(currentpage * 5);
-    setIndexOfFirstPost(indexOfLastPost - 5);
+    setIndexOfLastPost(currentpage * 10);
+    setIndexOfFirstPost(indexOfLastPost - 10);
     setCurrentPosts(result.slice(indexOfFirstPost, indexOfLastPost));
   }, [currentpage, indexOfFirstPost, indexOfLastPost, result, 5]);
 
@@ -153,12 +170,14 @@ function Map() {
                   setSearchValue(e.target.value);
                 }}
               />
+
               <S.selectContainer>
-                <S.selectBox>
+                <S.selectBox active={isOpenRegionList}>
                   {/* 지역 */}
                   <S.select_button
                     type="button"
                     onClick={() => setIsOpenRegionList(!isOpenRegionList)}
+                    active={isOpenRegionList}
                   >
                     {selectedRegion ?? "지역별"}
                   </S.select_button>
@@ -174,11 +193,12 @@ function Map() {
                   )}
                 </S.selectBox>
 
-                <S.selectBox>
+                <S.selectBox active={isOpenTypeList}>
                   {/* 종류 */}
                   <S.select_button
                     type="button"
                     onClick={() => setIsOpenTypeList(!isOpenTypeList)}
+                    active={isOpenTypeList}
                   >
                     {selectedType ?? "종류별"}
                   </S.select_button>
@@ -194,11 +214,12 @@ function Map() {
                   )}
                 </S.selectBox>
 
-                <S.selectBox>
+                <S.selectBox active={isOpenVeganList}>
                   {/* 비건 */}
                   <S.select_button
                     type="button"
                     onClick={() => setIsOpenVeganList(!isOpenVeganList)}
+                    active={isOpenVeganList}
                   >
                     {selectedVegan ?? "비건"}
                   </S.select_button>

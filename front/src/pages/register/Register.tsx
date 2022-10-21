@@ -55,7 +55,9 @@ function RegisterForm() {
     try {
       // "registration" 엔드포인트로 post요청함.
       await Api.post("registration/", formData);
-      alert("가입하신 이메일로 인증메일을 보냈습니다.");
+      alert(
+        "가입하신 이메일로 인증메일을 보냈습니다.\n인증해주시면 가입이 완료됩니다."
+      );
       // 로그인 페이지로 이동함.
       navigate("/login");
     } catch (err) {
@@ -78,59 +80,60 @@ function RegisterForm() {
 
   return (
     <>
-      <R.WholeLayout onSubmit={handleSubmit}>
-        <R.RegisterTitle>회원가입</R.RegisterTitle>
-        <R.Position>
-          <R.RegisterBox
-            type="email"
-            name="email"
-            autoComplete="off"
-            value={formData.email}
-            onChange={handleonChange}
-            placeholder="이메일 입력"
-          >
-            
-          </R.RegisterBox>
+      <R.WholeLayout>
+        <R.Wrapper>
+          <R.RegisterTitle>회원가입</R.RegisterTitle>
           <R.SameBox onClick={isEmailSame}>중복확인</R.SameBox>
+        </R.Wrapper>
+        <R.LayoutForm onSubmit={handleSubmit}>
+          <R.Position>
+            <R.RegisterBox
+              type="email"
+              name="email"
+              autoComplete="off"
+              value={formData.email}
+              onChange={handleonChange}
+              placeholder="이메일 입력"
+            ></R.RegisterBox>
 
-          {!isEmailValid && formData.email && (
-            <div className="text-success">이메일 형식이 올바르지 않습니다.</div>
-          )}
-        </R.Position>
+            {!isEmailValid && formData.email && (
+              <div className="text-success">
+                이메일 형식이 올바르지 않습니다.
+              </div>
+            )}
+          </R.Position>
 
-        <R.Position>
-          
-          <R.PasswordBox
-            type="password"
-            name="password1"
-            autoComplete="off"
-            value={formData.password1}
-            onChange={handleonChange}
-            placeholder="비밀번호 입력"
-          />
-          {!isPasswordValid && formData.password1 && (
-            <div className="text-success">
-              비밀번호는 8글자 이상으로 설정해 주세요.
-            </div>
-          )}
-        </R.Position>
+          <R.Position>
+            <R.PasswordBox
+              type="password"
+              name="password1"
+              autoComplete="off"
+              value={formData.password1}
+              onChange={handleonChange}
+              placeholder="비밀번호 입력"
+            />
+            {!isPasswordValid && formData.password1 && (
+              <div className="text-success">
+                비밀번호는 8글자 이상으로 설정해 주세요.
+              </div>
+            )}
+          </R.Position>
 
-        <R.Position>
-         
-          <R.PasswordBox
-            type="password"
-            name="password2"
-            autoComplete="off"
-            value={formData.password2}
-            onChange={handleonChange}
-            placeholder="비밀번호 확인"
-          />
-          {!isPasswordSame && (
-            <div className="text-success">비밀번호가 일치하지 않습니다.</div>
-          )}
-        </R.Position>
+          <R.Position>
+            <R.PasswordBox
+              type="password"
+              name="password2"
+              autoComplete="off"
+              value={formData.password2}
+              onChange={handleonChange}
+              placeholder="비밀번호 확인"
+            />
+            {!isPasswordSame && (
+              <div className="text-success">비밀번호가 일치하지 않습니다.</div>
+            )}
+          </R.Position>
 
-        {/* <div>
+          {/* <div>
           <span>이름</span>
           <input
             type="text"
@@ -146,15 +149,18 @@ function RegisterForm() {
           )}
         </div> */}
 
-        <div>
-          <R.RegisterButton type="submit" disabled={!isFormValid}>
-            회원가입
-          </R.RegisterButton>
-        </div>
+          <div>
+            <R.RegisterButton type="submit" disabled={!isFormValid}>
+              회원가입
+            </R.RegisterButton>
+          </div>
 
-        <div>
-          <R.LoginButton onClick={() => navigate("/login")}>로그인하기</R.LoginButton>
-        </div>
+          <div>
+            <R.LoginButton onClick={() => navigate("/login")}>
+              로그인하기
+            </R.LoginButton>
+          </div>
+        </R.LayoutForm>
       </R.WholeLayout>
     </>
   );

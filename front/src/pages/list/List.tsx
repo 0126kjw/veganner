@@ -14,6 +14,7 @@ function ViewList() {
   const navigateToAddPost = () => {
     navigate("/addPost");
   };
+  const email = window.sessionStorage.getItem("email");
 
   const [group, setGroup] = useState<number>(2);
   const [currentPage, setCurrentPage] = useState<number>(1);
@@ -27,6 +28,16 @@ function ViewList() {
 
   const [postList, setPostList] = useState([]);
   const [totalPage, setTotalPage] = useState(50);
+
+  function handleNoSubmit() {
+    if (window.confirm("로그인하고 글을 남겨주세요.")) {
+      try {
+        navigate("/login");
+      } catch (err) {
+        // console.log(err);
+      }
+    }
+  }
 
   useEffect(() => {
     const makeParam = () => {
@@ -61,7 +72,7 @@ function ViewList() {
         })
         .then((res) => {
           setPostList(res.data.list);
-          setTotalPage(res.data.page["num_pages"])
+          setTotalPage(res.data.page["num_pages"]);
         });
     };
     getList();
@@ -82,14 +93,17 @@ function ViewList() {
           group={group}
         />
         {postList.length !== 0 && <ListCard postList={postList} />}
-
-        <L.WriteButton onClick={navigateToAddPost}>글쓰기</L.WriteButton>
+        {email === null ? (
+          <L.WriteButton onClick={handleNoSubmit}>글쓰기</L.WriteButton>
+        ) : (
+          <L.WriteButton onClick={navigateToAddPost}>글쓰기</L.WriteButton>
+        )}
       </L.WholeLayout>
       <div>
         <Pagination
           activePage={currentPage}
           itemsCountPerPage={12}
-          totalItemsCount={totalPage*12}
+          totalItemsCount={totalPage * 12}
           pageRangeDisplayed={5}
           prevPageText="‹"
           nextPageText="›"

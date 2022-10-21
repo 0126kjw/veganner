@@ -56,10 +56,10 @@ function SearchFilter({ setRegion, setType, region, type, group }: Props) {
           {v}
         </S.FilterButton>
       );
-    } else if (v.length === 3) {
+    } else if (v.length >= 3) {
       return (
         <S.FilterButton
-          width={70}
+          width={80}
           onClick={(e) => {
             e.preventDefault();
             setRegion(v);
@@ -85,10 +85,10 @@ function SearchFilter({ setRegion, setType, region, type, group }: Props) {
           {v}
         </S.FilterButton>
       );
-    } else if (v.length === 3) {
+    } else if (v.length >= 3) {
       return (
         <S.FilterButton
-          width={70}
+          width={80}
           onClick={(e) => {
             e.preventDefault();
             setType(v);

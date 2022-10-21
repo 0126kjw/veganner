@@ -55,7 +55,6 @@ function LoginForm() {
       // 원래 있던 페이지로 이동
       navigate(-1);
     } catch (err) {
-      console.log("로그인에 실패하였습니다.\n", err);
       alert("로그인에 실패하였습니다. 아이디와 비밀번호를 다시 확인해주세요");
     }
   };

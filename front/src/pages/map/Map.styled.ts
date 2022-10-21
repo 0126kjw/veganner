@@ -1,5 +1,8 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import { Link } from "react-router-dom";
+export interface buttonProps {
+  active?: boolean;
+}
 
 // 전체
 export const Title = styled.div`
@@ -13,7 +16,7 @@ export const Title1 = styled.div`
   color: #004d43;
   height: 20px;
   font-size: 25px;
-  font-weight: bold;
+  // font-weight: bold;
 `;
 
 export const Title2 = styled.div`
@@ -22,9 +25,11 @@ export const Title2 = styled.div`
 `;
 export const Layout = styled.section`
   display: flex;
-  margin: 30px auto;
+  // overflow-y: hidden;
+  margin: 18px auto;
+  margin-bottom: 0px;
   width: 1400px;
-  height: 100vh;
+  height: 730px;
   border-radius: 5px;
   font-family: Noto Sans KR;
 `;
@@ -32,6 +37,8 @@ export const Layout = styled.section`
 //
 export const resMenu = styled.div`
   position: flex;
+  width: 330px;
+  height: 730px;
   border-radius: 3px 5px 8px 10px;
   background: white;
   margin-bottom: 100px;
@@ -41,11 +48,13 @@ export const searchContainer = styled.div`
   background: #ffffff;
   margin-bottom: 100px;
   border-radius: 20px;
+  width: 330px;
 `;
 
 export const searchForm = styled.form`
   border-bottom: 2px solid #f1f1f1;
-  width: 400px;
+  width: 330px;
+  height: 11.5vh;
 `;
 
 export const search = styled.input`
@@ -54,30 +63,37 @@ export const search = styled.input`
   border-radius: 9999px;
   // box-sizing: border-box;
   font-size: 16px;
-  height: 48px;
+  height: 42px;
   margin: 28px 10px 10px 28px;
   padding: 0 20px 0 20px;
-  width: 100%;
+  width: 230px;
 `;
 
 // 카테고리 버튼
 export const selectContainer = styled.div`
   display: flex;
-  justify-content: flex-end;
-  width: 500px;
-  padding: 0 10px 10px 0;
+  justify-content: end;
+  width: 330px;
+  padding: 0 0 5px 5px;
 `;
-export const selectBox = styled.div`
-  width: 80px;
-  height: 30px;
+export const selectBox = styled.div<buttonProps>`
+  width: 64px;
+  height: 25px;
+
   border-radius: 9999px;
   border: 2px solid #004d43;
   background: #ffffff calc(100% - 7px) center no-repeat;
   background-size: 10px;
-  margin: 5px 10px 5px 0;
+  margin: 5px 20px 0px -10px;
+  ${({ active }) =>
+    active &&
+    css`
+      background-color: #004d43;
+      // color: white;
+    `}
 `;
 
-export const select_button = styled.button`
+export const select_button = styled.button<buttonProps>`
   // display: block;
   align-items: center;
   text-align: center;
@@ -88,28 +104,35 @@ export const select_button = styled.button`
   border: 0 none;
   outline: 0 none;
   background: transparent;
+  font-size: 12px;
+  ${({ active }) =>
+    active &&
+    css`
+      background-color: #004d43 calc(100% - 7px) center no-repeat;
+      color: white;
+    `}
 `;
 export const optionList = styled.ul`
   position: relative;
-  // display: block;
+  text-align: center;
   top: 28px;
-
-  width: 80px;
+  // font-size: 5px;
+  width: 64px;
   border-radius: 5px;
   border: 2px lightgray solid;
-  margin: -20px 4px 5px -2px;
+  margin: -20px 4px 0px -2px;
   background-color: #ffffff;
-  // overflow: hidden;
   transition: 0.3s ease-in;
 `;
 export const optionitem = styled.li`
   border-bottom: 2px solid lightgray;
-  padding: 5px 15px 5px;
+  // display: inline-block;
+  padding: 5px;
   margin: auto;
   transition: 0.1s;
   height: 15px;
   text-align: center;
-  font-size: 10px;
+  font-size: 5px;
   background-color: #ffffff;
 
   :hover {
@@ -119,8 +142,8 @@ export const optionitem = styled.li`
 
 export const resContainer = styled.div`
   position: block;
-  width: 500px;
-  height: 78vh;
+  width: 330px;
+  height: 55vh;
   background: #ffffff;
   border-radius: 20px;
   overflow: auto;
@@ -129,9 +152,9 @@ export const resContainer = styled.div`
 // 식당 리스트 1개
 export const restaurant = styled.div`
   display: block;
-  height: 
   border-bottom: 2px solid #f1f1f1;
-  padding: 25px 40px;
+  padding: 20px 30px;
+  height: 100px;
 `;
 
 export const stylelink = styled(Link)`
@@ -141,7 +164,7 @@ export const stylelink = styled(Link)`
 export const h2 = styled.h2`
   display: block;
   font-weight: 700;
-  margin-bottom: 8px;
+  margin-bottom: 5px;
   // position: relative;
   text-decoration-line: none;
   color: rgb(58, 58, 58);
@@ -151,7 +174,7 @@ export const h2 = styled.h2`
 export const p = styled.p`
   display: block;
   margin-block-start: 1em;
-  margin-block-end: 1em;
+
   margin-inline-start: 0px;
   margin-inline-end: 0px;
   color: rgb(58, 58, 58);
@@ -161,8 +184,8 @@ export const p = styled.p`
 
 export const boxdiv = styled.div`
   display: block;
-  margin: 8px 0 0 0;
-  height: 25px;
+  margin: 5px 0;
+  height: 30px;
 `;
 
 export const box = styled.div`
@@ -184,9 +207,6 @@ export const box = styled.div`
 // 페이지네이션 박스
 export const pagination = styled.div`
   display: flex;
-  width: 20vh;
-  // align-items: center;
-  // justify-content: center;
 `;
 
 // MainMap
@@ -200,16 +220,19 @@ export const MainMap = styled.div`
 // Paging
 export const paging = styled.div`
   display: flex;
-  height: 5vh;
+  // height: 5vh;
   justify-content: center;
   text-align: center;
   padding: 7px;
-  margin-left: 85px;
-  margin-top: -80px;
-  margin-bottom: 80px;
+  margin-left: 33px;
+  margin-top: -53px;
+  // margin-bottom: 40px;
 `;
 
 //
+export const icon = styled.div`
+  height: 30px;
+`;
 export const backicon = styled.img`
-  margin: 10px;
+  margin: 10px 0 0 10px;
 `;

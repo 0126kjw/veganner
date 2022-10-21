@@ -2,7 +2,7 @@ import { useNavigate } from "react-router-dom";
 import * as L from "./List.styled";
 import { FaRegThumbsUp } from "react-icons/fa";
 import { format, formatDistanceToNow } from "date-fns";
-import {ko} from "date-fns/locale";
+import { ko } from "date-fns/locale";
 
 interface Props {
   postList: {
@@ -17,9 +17,6 @@ interface Props {
   }[];
 }
 
-
-
-
 function ListCard({ postList }: Props) {
   const navigate = useNavigate();
 
@@ -30,17 +27,25 @@ function ListCard({ postList }: Props) {
           <>
             <L.Card key={post.ID} onClick={() => navigate(`/board/${post.ID}`)}>
               <L.CardHeader>
-                <L.CardHeaderProfile></L.CardHeaderProfile>
-                <L.CardHeaderText>{post.User}</L.CardHeaderText>
-                <L.likeWrap>
-                <FaRegThumbsUp />
-                {post.Likes}
-                </L.likeWrap>
+                <L.CardWrap>
+                  <L.CardHeaderProfile></L.CardHeaderProfile>
+                  <L.CardHeaderText>{post.User}</L.CardHeaderText>
+                  <L.likeWrap>
+                    <FaRegThumbsUp size="20" style={{ marginTop: "4px" }} />
+                    {post.Likes}
+                  </L.likeWrap>
+                </L.CardWrap>
               </L.CardHeader>
-              <L.CardHeaderImage src={`../../../../back/${post.Thumbnail}`} />
+              <L.imgWrapper>
+                <L.CardHeaderImage src={`../../../../back/${post.Thumbnail}`} />
+              </L.imgWrapper>
               <L.CardBottom>
                 <L.CardBottomTitle>{post.Title}</L.CardBottomTitle>
-                <L.CardBottomDate>{format(new Date(post.CreationTime), 'yy-MM-dd', {locale: ko})}</L.CardBottomDate>
+                <L.CardBottomDate>
+                  {format(new Date(post.CreationTime), "yy-MM-dd", {
+                    locale: ko,
+                  })}
+                </L.CardBottomDate>
               </L.CardBottom>
             </L.Card>
           </>

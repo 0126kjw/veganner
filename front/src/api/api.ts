@@ -4,7 +4,7 @@ const backendPortNumber = "8000";
 // 로컬서버
 const localBaseUrl = "localhost";
 // 개발서버
-const realBaseUrl = "kdt-ai5-team01.elicecoding.com";
+const realBaseUrl = "veganner-back.herokuapp.com";
 
 const serverUrl = `https://veganner-back.herokuapp.com/`;
 axios.defaults.withCredentials = true;
