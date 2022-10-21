@@ -62,7 +62,7 @@ function AddPost({ tuiEditor }: AddPostProps) {
 
     try {
       await axios
-        .post("http://kdt-ai5-team01.elicecoding.com:5000/board/", formData, {
+        .post("https://7381-123-111-237-197.jp.ngrok.io/board/", formData, {
           headers: {
             "Content-Type": "multipart/form-data",
           },

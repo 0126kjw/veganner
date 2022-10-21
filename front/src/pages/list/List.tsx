@@ -64,7 +64,7 @@ function ViewList() {
       //     });
 
       await axios
-        .get("http://kdt-ai5-team01.elicecoding.com:5000/board", {
+        .get("https://7381-123-111-237-197.jp.ngrok.io/board", {
           headers: {
             "Content-Type": "application/json",
           },

@@ -55,7 +55,7 @@ function EditPost() {
 
     try {
       await axios
-        .put(`http://kdt-ai5-team01.elicecoding.com:5000/board/${post.ID}/`, formData, {
+        .put(`https://7381-123-111-237-197.jp.ngrok.io/board/${post.ID}/`, formData, {
           headers: {
             "Content-Type": "multipart/form-data",
           },

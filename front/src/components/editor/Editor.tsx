@@ -16,14 +16,14 @@ function TuiEditor(props: EditorProps) {
     console.log(formData);
 
     const { data: url } = await axios.post(
-      "http://kdt-ai5-team01.elicecoding.com:5000/board/img/",
+      "https://7381-123-111-237-197.jp.ngrok.io/board/img/",
       formData,
       {
         headers: { "Content-Type": "multipart/form-data" },
       }
     );
     console.log(url["Image"]);
-    const imgSrc = "http://kdt-ai5-team01.elicecoding.com:5000/board" + url["Image"];
+    const imgSrc = "https://7381-123-111-237-197.jp.ngrok.io/board" + url["Image"];
     callback(imgSrc, "image");
   };
 
