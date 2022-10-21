@@ -64,7 +64,7 @@ function ViewList() {
       //     });
 
       await axios
-        .get("https://veganner-back.herokuapp.com/board", {
+        .get("http://kdt-ai5-team01.elicecoding.com:5000/board", {
           headers: {
             "Content-Type": "application/json",
           },

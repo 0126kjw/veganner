@@ -55,7 +55,7 @@ function EditPost() {
 
     try {
       await axios
-        .put(`https://veganner-back.herokuapp.com/board/${post.ID}/`, formData, {
+        .put(`http://kdt-ai5-team01.elicecoding.com:5000/board/${post.ID}/`, formData, {
           headers: {
             "Content-Type": "multipart/form-data",
           },

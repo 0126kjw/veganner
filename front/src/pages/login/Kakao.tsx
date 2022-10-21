@@ -34,7 +34,7 @@ function KakaoLogin() {
         if (data.access_token) {
           localStorage.setItem("token", data.access_token);
 
-          fetch(`https://veganner-back.herokuapp.com/kakao/login/`, {
+          fetch(`http://kdt-ai5-team01.elicecoding.com:5000/kakao/login/`, {
             credentials: "include",
             method: "POST",
             headers: { "Content-Type": "application/json" },

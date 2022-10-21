@@ -60,5 +60,5 @@
   "devDependencies": {
     "@types/styled-components": "^5.1.26"
   },
-  "proxy": "https://veganner-back.herokuapp.com/"
+  "proxy": "http://kdt-ai5-team01.elicecoding.com:5000/"
 }
