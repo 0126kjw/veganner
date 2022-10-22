@@ -62,7 +62,7 @@ function AddPost({ tuiEditor }: AddPostProps) {
 
     try {
       await axios
-        .post("https://7381-123-111-237-197.jp.ngrok.io/board/", formData, {
+        .post("https://veganner-back.herokuapp.com/board/", formData, {
           headers: {
             "Content-Type": "multipart/form-data",
           },

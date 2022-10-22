@@ -60,5 +60,5 @@
   "devDependencies": {
     "@types/styled-components": "^5.1.26"
   },
-  "proxy": "https://7381-123-111-237-197.jp.ngrok.io/"
+  "proxy": "https://veganner-back.herokuapp.com/"
 }

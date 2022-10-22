@@ -64,7 +64,7 @@ function ViewList() {
       //     });
 
       await axios
-        .get("https://7381-123-111-237-197.jp.ngrok.io/board", {
+        .get("https://veganner-back.herokuapp.com/board", {
           headers: {
             "Content-Type": "application/json",
           },
