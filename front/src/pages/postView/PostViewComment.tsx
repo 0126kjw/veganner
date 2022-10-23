@@ -263,14 +263,14 @@ function PostViewComment({ post }: postProps) {
             </CommentsInfo>
             <div className="comment">{comment.Comment}</div>
             <button>답글</button>
-            {userData && userData.email === comment.User_id ? (
+            {userData && userData.email === comment.User_id && (
               <button
                 type="button"
                 onClick={(e) => handleDelete(e, comment.CommentId)}
               >
                 삭제
               </button>
-            ) : null}
+            )}
           </CommentsWrapper>
         );
       })}

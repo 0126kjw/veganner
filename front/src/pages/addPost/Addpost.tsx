@@ -4,9 +4,7 @@ import * as Api from "../../api/api";
 import { Editor } from "@toast-ui/react-editor";
 import Category from "../../components/category/Category";
 import Filter from "../../components/filter/Filter";
-import TuiEditor from "../../components/editor/Editor";
-import { EditorProps } from "../../components/editor/Editor";
-import axios from "axios";
+import TuiEditor, { EditorProps } from "../../components/editor/Editor";
 import { useNavigate } from "react-router-dom";
 
 interface AddPostProps {
@@ -47,9 +45,10 @@ function AddPost({ tuiEditor }: AddPostProps) {
     //   console.log(editorRef.current.getInstance().getHTML());
     // }
     // 예외처리(레시피는 주소 항목 없음.)
-    if (group === 1) {
-      setAddress("");
-    }
+
+    // if (group === 1) {
+    //   setAddress("");
+    // }
     const formData = new FormData();
     formData.append("Title", title);
     if (editorRef.current) {
@@ -59,17 +58,11 @@ function AddPost({ tuiEditor }: AddPostProps) {
     formData.append("Address", address);
     formData.append("Type", type);
     if (thumbnail) formData.append("Thumbnail", thumbnail);
-
+    console.log(formData);
     try {
-      await axios
-        .post("https://veganner-back.herokuapp.com/board/", formData, {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-        })
-        .then((res) => {
-          navigate(`/board/${res.data.ID}`);
-        });
+      await Api.post(`board/`, formData).then((res) => {
+        navigate(`/board/${res.data.ID}`);
+      });
     } catch (err) {
       console.log(err);
     }
@@ -89,12 +82,12 @@ function AddPost({ tuiEditor }: AddPostProps) {
         accept="image/*"
         onChange={handleThumbnail}
       />
-      {group === 0 ? (
+      {group === 0 && (
         <S.LocationRegisterBar
           type="text"
           placeholder="장소를 검색해 등록해주세요."
         />
-      ) : null}
+      )}
       <Filter
         address={address}
         type={type}

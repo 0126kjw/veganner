@@ -114,7 +114,7 @@ function PostViewContent({ post }: postProps) {
         <HashtagBlock>
           <div className="hashtag">{post.Hashtag ? post.Hashtag : "#"}</div>
         </HashtagBlock>
-        {userData && userData.email === post.User ? (
+        {userData && userData.email === post.User && (
           <ButtonBlock>
             <button type="button" onClick={handleEditButton}>
               수정
@@ -123,7 +123,7 @@ function PostViewContent({ post }: postProps) {
               삭제
             </button>
           </ButtonBlock>
-        ) : null}
+        )}
       </ViewBottomBlock>
     </>
   );
