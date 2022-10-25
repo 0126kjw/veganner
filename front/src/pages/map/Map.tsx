@@ -101,7 +101,6 @@ function Map() {
           return item.food === selectedVegan;
         }
       });
-
     setResult(filteredStores);
   }, [selectedType, selectedVegan, selectedRegion]);
 
@@ -141,11 +140,6 @@ function Map() {
     navigate("/explore");
   }
 
-  //페이지네이션
-  // const indexOfLastPost = currentpage * postsPerPage;
-  // const indexOfFirstPost = indexOfLastPost - postsPerPage;
-  // const post = result.slice(indexOfFirstPost, indexOfLastPost);
-  // setCurrentPosts(post);
   useEffect(() => {
     setIndexOfLastPost(currentpage * 10);
     setIndexOfFirstPost(indexOfLastPost - 10);

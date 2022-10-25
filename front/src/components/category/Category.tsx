@@ -13,7 +13,7 @@ const categories = [
   },
   {
     id: "레시피",
-    value: 2,
+    value: 1,
   },
 ];
 function Category(props: CategoryProps) {

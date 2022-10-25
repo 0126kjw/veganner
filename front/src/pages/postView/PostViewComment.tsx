@@ -129,7 +129,6 @@ function PostViewComment({ post }: postProps) {
       try {
         const res = await Api.get(`user`);
         setUserData(res.data);
-        console.log("유저 정보 가져오기에 성공했습니다.\n", res);
       } catch (err) {
         console.log("유저 정보 가져오기에 실패했습니다.\n", err);
       }
@@ -153,7 +152,6 @@ function PostViewComment({ post }: postProps) {
       try {
         const res = await Api.get(`board/${post.ID}/comments`);
         setComments([...res.data]);
-        console.log(res);
       } catch (err) {
         console.log("댓글 불러오기에 실패했습니다.\n", err);
       }
@@ -170,14 +168,11 @@ function PostViewComment({ post }: postProps) {
     e.stopPropagation();
 
     try {
-      console.log(comment);
       let res = await Api.post(`board/${post.ID}/comments/`, {
         Comment: comment,
       });
-      console.log("댓글 작성에 성공했습니다.\n", res);
 
       res = await Api.get(`board/${post.ID}/comments`);
-      console.log(res.data);
       setComments([...res.data]);
     } catch (err) {
       console.log("댓글 작성에 실패했습니다.\n", err);
@@ -197,10 +192,8 @@ function PostViewComment({ post }: postProps) {
         `board/${post.ID}/comments`,
         `?CommentId=${id}`
       );
-      console.log("댓글 삭제에 성공했습니다.\n", res);
 
       res = await Api.get(`board/${post.ID}/comments`);
-      console.log(res.data);
       setComments([...res.data]);
     } catch (err) {
       console.log("댓글 삭제에 실패했습니다.\n", err);

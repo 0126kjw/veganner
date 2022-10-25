@@ -9,19 +9,13 @@ const realBaseUrl = "veganner-back.herokuapp.com";
 const serverUrl = `https://veganner-back.herokuapp.com/`;
 axios.defaults.withCredentials = true;
 async function get(endpoint: string, params = "") {
-  console.log(
-    `%cGET 요청 ${serverUrl + endpoint + "/" + params}`,
-    "color: #a25cd1;"
-  );
 
-  return axios.get(
-    serverUrl + endpoint + "/" + params,
-    {
-      // JWT 토큰을 헤더에 담아 백엔드 서버에 보냄.
-      headers: {
-        "Content-Type": "application/json"},
-    }
-  );
+  return axios.get(serverUrl + endpoint + "/" + params, {
+    // JWT 토큰을 헤더에 담아 백엔드 서버에 보냄.
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
 }
 
 async function post(endpoint: string, data?: any) {

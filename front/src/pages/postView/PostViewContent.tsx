@@ -66,7 +66,6 @@ function PostViewContent({ post }: postProps) {
       try {
         const res = await Api.get(`user`);
         setUserData(res.data);
-        console.log("유저 정보 가져오기에 성공했습니다.\n", res);
       } catch (err) {
         console.log("유저 정보 가져오기에 실패했습니다.\n", err);
       }
@@ -95,9 +94,6 @@ function PostViewContent({ post }: postProps) {
 
       try {
         let res = await Api.delete(`board/${post.ID}`);
-        console.log("글 삭제에 성공했습니다.\n", res);
-        console.log(res.data);
-
         navigate("/share", { replace: true });
       } catch (err) {
         console.log("글 삭제에 실패했습니다.\n", err);

@@ -18,12 +18,13 @@ export const Insight = styled.div`
 `;
 
 export const PageLayout = styled.div<InsightStyledProps>`
-  width: auto;
+  width: 100%;
   height: ${(props) => props.height};
   font-family: "Noto Sans KR";
   display: flex;
   flex-direction: ${(props) => props.flexDirection};
   background-color: ${(props) => props.backgroundColor};
+  position: relative;
 `;
 
 export const BackgroundImgLayout = styled.div<InsightStyledProps>`
@@ -129,7 +130,7 @@ export const AnimalButton = styled.button<InsightStyledProps>`
   background-repeat: no-repeat;
   margin: 0 70px;
   background-color: transparent;
-  cursor:pointer;
+  cursor: pointer;
   :focus {
     border: none;
     outline: none;
@@ -189,5 +190,29 @@ export const Button = styled.button`
   }
   :active {
     border: none;
+  }
+`;
+
+export const WithButton = styled.button`
+  display: block;
+  position: absolute;
+  bottom: 50px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 150px;
+  height: 50px;
+  border: none;
+  background-color: transparent;
+  border: 1px solid #222;
+  border-radius:50px;
+  margin-top: 15px;
+  font-size: 20px;
+  color: #222;
+  cursor: pointer;
+
+  &:hover{
+    background-color: #004D43;
+    color:white;
+    transition:1s all;
   }
 `;

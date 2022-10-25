@@ -73,8 +73,6 @@ function PostViewHead({ post }: postProps) {
   async function handleLike() {
     try {
       let res = await Api.post(`board/${post.ID}/like/`);
-      console.log("좋아요 성공\n", res);
-
       liked ? setLiked(false) : setLiked(true);
     } catch (err) {
       console.log("좋아요 실패\n", err);
@@ -86,7 +84,6 @@ function PostViewHead({ post }: postProps) {
       try {
         const res = await Api.get(`board/${post.ID}/like`);
         post.Likes = res.data;
-        console.log("좋아요 수 조회에 성공했습니다.\n", res);
       } catch (err) {
         console.log("좋아요 수 조회에 실패했습니다.\n", err);
       }

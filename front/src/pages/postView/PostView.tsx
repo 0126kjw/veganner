@@ -53,7 +53,6 @@ function PostView() {
     async function getPost() {
       try {
         let res = await Api.get(`board/${postId}`);
-        console.log(res.data);
         setPost(res.data);
       } catch (err) {
         console.log("글 불러오기를 실패했습니다.\n", err);

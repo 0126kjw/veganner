@@ -1,12 +1,12 @@
 import * as S from "./Post.styled";
 import React, { useEffect, useRef, useState } from "react";
-import * as Api from "../../api/api";
+// import * as Api from "../../api/api";
 import { Editor } from "@toast-ui/react-editor";
 import Category from "../../components/category/Category";
 import Filter from "../../components/filter/Filter";
 import TuiEditor, { EditorProps } from "../../components/editor/Editor";
 import { useNavigate } from "react-router-dom";
-
+import axios from "axios";
 interface AddPostProps {
   tuiEditor?: EditorProps;
 }
@@ -60,9 +60,15 @@ function AddPost({ tuiEditor }: AddPostProps) {
     if (thumbnail) formData.append("Thumbnail", thumbnail);
     console.log(formData);
     try {
-      await Api.post(`board/`, formData).then((res) => {
-        navigate(`/board/${res.data.ID}`);
-      });
+      await axios
+        .post("https://veganner-back.herokuapp.com/board/", formData, {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        })
+        .then((res) => {
+          navigate(`/board/${res.data.ID}`);
+        });
     } catch (err) {
       console.log(err);
     }

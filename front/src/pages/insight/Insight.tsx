@@ -19,6 +19,7 @@ import PigLivestockEmission from "../../components/chart/livestockEmission/PigLi
 import ChickenLivestockEmission from "../../components/chart/livestockEmission/ChickenLivestockEmission";
 import KoreaMeatConsumption from "../../components/chart/meatConsumption/KoreaMeatConsumption";
 import KoreaPersonMeatConsumption from "../../components/chart/meatConsumption/KoreaPersonMeatConsumption";
+import { useNavigate } from "react-router-dom";
 
 function Insight() {
   const [animalEmission, setAnimalEmission] = useState<ReactNode>(
@@ -32,6 +33,7 @@ function Insight() {
   const [CO2Emission, setCO2Emission] = useState<ReactNode>(
     <CO2eEmissionWorld />
   );
+  const navigate = useNavigate();
 
   return (
     <S.Insight>
@@ -263,6 +265,9 @@ function Insight() {
             환영합니다!
           </S.Text>
         </S.RowTextBox>
+        <S.WithButton onClick={(e) => {
+            navigate("/board");
+          }}>커뮤니티 가기</S.WithButton>
       </S.PageLayout>
     </S.Insight>
   );

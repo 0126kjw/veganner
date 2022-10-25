@@ -6,6 +6,7 @@ import Filter from "../../components/filter/Filter";
 import TuiEditor from "../../components/editor/Editor";
 import axios from "axios";
 import { useNavigate, useLocation } from "react-router-dom";
+// import * as Api from "../../api/api";
 
 function EditPost() {
   // 에디터 initialValue
@@ -28,7 +29,7 @@ function EditPost() {
     if (editorRef.current) {
       editorRef.current.getInstance().setHTML(post.Content);
     }
-  }, []);
+  }, [post.Content]);
 
   const handleThumbnail = async (e: any) => {
     setThumbnail(e.target.files[0]);
@@ -55,11 +56,15 @@ function EditPost() {
 
     try {
       await axios
-        .put(`https://veganner-back.herokuapp.com/board/${post.ID}/`, formData, {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-        })
+        .put(
+          `https://veganner-back.herokuapp.com/board/${post.ID}/`,
+          formData,
+          {
+            headers: {
+              "Content-Type": "multipart/form-data",
+            },
+          }
+        )
         .then((res) => {
           navigate(`/board/${res.data.ID}`);
         });

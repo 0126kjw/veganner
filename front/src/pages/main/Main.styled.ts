@@ -51,6 +51,11 @@ export const WithButton = styled.button`
   font-size: 20px;
   color: #f1f1f1;
   cursor:pointer;
+  &:hover{
+    background-color: #004D43;
+    color:white;
+    transition:1s all;
+  }
 `;
 
 export const PageLayout = styled.div<MainStyledProps>`

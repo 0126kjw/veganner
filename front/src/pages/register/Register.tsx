@@ -40,9 +40,9 @@ function RegisterForm() {
     // Api.get("user", formData.email).then((res) => setUser(res.data));
     try {
       const res = await Api.get("email", formData.email);
-      alert(res.data.message);
+      alert("사용할 수 있는 이메일입니다.");
     } catch {
-      alert("이메일이 유효하지 않습니다.");
+      alert("이미 사용된 이메일입니다.");
     }
   };
 
@@ -133,21 +133,6 @@ function RegisterForm() {
             )}
           </R.Position>
 
-          {/* <div>
-          <span>이름</span>
-          <input
-            type="text"
-            name="name"
-            autoComplete="off"
-            value={formData.name}
-            onChange={handleonChange}
-          />
-          {!isNameValid && (
-            <div className="text-success">
-              이름은 2글자 이상으로 설정해 주세요.
-            </div>
-          )}
-        </div> */}
 
           <div>
             <R.RegisterButton type="submit" disabled={!isFormValid}>
