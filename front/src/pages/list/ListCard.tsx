@@ -37,7 +37,7 @@ function ListCard({ postList }: Props) {
                 </L.CardWrap>
               </L.CardHeader>
               <L.imgWrapper>
-                <L.CardHeaderImage src={`http://localhost:8000/board/img/${post.Thumbnail}`} />
+                <L.CardHeaderImage src={`https://veganner-back.herokuapp.com/board/img/${post.Thumbnail}`} />
               </L.imgWrapper>
               <L.CardBottom>
                 <L.CardBottomTitle>{post.Title}</L.CardBottomTitle>
